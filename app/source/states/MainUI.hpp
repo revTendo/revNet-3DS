@@ -8,7 +8,7 @@ namespace MainUI
     Result switchAccounts(MainStruct* mainStruct, u8 friend_account_id);
     Result createAccount(MainStruct* mainStruct, u8 friend_account_id, NascEnvironment environmentId);
     void migrateAccount(MainStruct *mainStruct);
-    void unlinkPNID(MainStruct *mainStruct);
+    void unlinkBNID(MainStruct *mainStruct);
     void launchPlugin(MainStruct *mainStruct);
     void openPrompt(MainStruct* mainStruct, const std::string& message, PromptStatus promptStatus);
     void updatePrompt(MainStruct* mainStruct, u32 kDown);

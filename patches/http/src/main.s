@@ -90,7 +90,7 @@ replace_function_addr equ 0x11AA70
 		sub     sp, sp, #0x28
 		str     r0, [r11, #-0x28] ; store r0 (our char* we are replacing string stuff on) into stack -0x28
 		bl      get_nasc_environment ; get the nasc environment
-		cmp     r0, #2 ; check if r0 is 2
+		cmp     r0, #3 ; check if r0 is 3
 		bne     handle_replacements_end ; if it isnt, skip the replacements
 
 		; else, run the replacements
@@ -100,18 +100,18 @@ replace_function_addr equ 0x11AA70
 		str     r3, [r11, #-0xc] ; store the just loaded target2 into stack -0xc
 		ldr     r3, =target3
 		str     r3, [r11, #-0x10] ; store the just loaded target3 into stack -0x10
-		ldr     r3, =replacementPretendo 
-		str     r3, [r11, #-0x14] ; store the just loaded replacementPretendo into stack -0x14
+		ldr     r3, =replacementBrewtendo 
+		str     r3, [r11, #-0x14] ; store the just loaded replacementBrewtendo into stack -0x14
 		
-		ldr     r2, [r11, #-0x14] ; load replacementPretendo into r2
+		ldr     r2, [r11, #-0x14] ; load replacementBrewtendo into r2
 		ldr     r1, [r11, #-0x8] ; load target1 into r1
 		ldr     r0, [r11, #-0x28] ; load our char* back into r0
 		bl      find_and_replace
-		ldr     r2, [r11, #-0x14] ; load replacementPretendo into r2
+		ldr     r2, [r11, #-0x14] ; load replacementBrewtendo into r2
 		ldr     r1, [r11, #-0xc] ; load target2 into r1
 		ldr     r0, [r11, #-0x28] ; load our char* back into r0
 		bl      find_and_replace
-		ldr     r2, [r11, #-0x14] ; load replacementPretendo into r2
+		ldr     r2, [r11, #-0x14] ; load replacementBrewtendo into r2
 		ldr     r1, [r11, #-0x10] ; load target3 into r1
 		ldr     r0, [r11, #-0x28] ; load our char* back into r0
 		bl      find_and_replace
@@ -140,7 +140,7 @@ replace_function_addr equ 0x11AA70
 	target3:
 		.asciiz "pokemon-gl.com"
 	
-	replacementPretendo:
-		.asciiz "pretendo.cc"
+    replacementBrewtendo:
+		.asciiz "brewtendo.cc"
 
 .close

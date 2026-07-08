@@ -1,12 +1,21 @@
 # Axiom
-## Brewtendo (Pretendo) account manager for the 3DS
+**Brewtendo account manager for the 3DS.**
+*Proxyless patcher*
 
-This is a special preview version of Axiom to show off our amazing UI!
+## Progress
 
->NOTE: This is just a Nimbus with a skin on it doesn't change anything relating to Nimbus, so it still connects you to [Pretendo Network](https://pretendo.network)
+| Service | Status |
+| --- | --- |
+| Nintendo 3DS eShop | Unavailable |
+| Badge Arcade | Unavailable |
+| Nintendo Video | Unavailable |
+| SpotPass | Unavailable |
+| BNID | Signing in works unlinking does not |
+| Miiverse | Works |
+| Friend List | Won't ever be supported |
+| Axiom (Proxyless patcher) | Works, but still is buggy |
+| Games | Unavailable |
+| Theme Shop | Unavailable |
 
-## Usage
-
-Download the app from our eShop or download it [here](https://github.com/Vugbdok/Axiom-Preview/releases/tag/Special-Preview)!
-
-# NO ETA!
+# NO ETA! 
+Yet...

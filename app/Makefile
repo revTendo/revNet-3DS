@@ -31,9 +31,9 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       := 	Axiom Preview
-APP_DESCRIPTION := 	Axiom Preview
-APP_AUTHOR	:=	By vugbdok8307, andrea__2209
+APP_TITLE       := 	Axiom
+APP_DESCRIPTION := 	Axiom
+APP_AUTHOR	:=	By thom5582 and andrea__2209
 TARGET		:=	axiom
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules
@@ -48,12 +48,13 @@ RSF_FILE := meta/axiom-cia.rsf
 ICON      := meta/icon.png
 BNR_IMAGE := meta/banner.png
 BNR_AUDIO := meta/audio.wav
+LOGO 	  := meta/logoTEST.bin
 
 VERSION_HEADER = version.hpp
 
-VERSION_MAJOR := 1
-VERSION_MINOR := 7
-VERSION_MICRO := 2
+VERSION_MAJOR := 0
+VERSION_MINOR := 9
+VERSION_MICRO := 9
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
@@ -74,13 +75,13 @@ CXXFLAGS	:=  $(CFLAGS) -fno-rtti -fno-exceptions -std=c++20
 ASFLAGS	    :=	-g $(ARCH)
 LDFLAGS	     =	-specs=3dsx.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map) $(OPTIMIZE)
 
-LIBS	    := -lcitro2d -lcitro3d -lctru -lm
+LIBS	    := -lcitro2d -lcitro3d -lctru -lmbedtls -lmbedcrypto -lmbedx509 -lm
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(CTRULIB)
+LIBDIRS	:= $(CTRULIB) $(PORTLIBS)
 
 
 #---------------------------------------------------------------------------------

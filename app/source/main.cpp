@@ -11,6 +11,42 @@
 
 MainStruct mainStruct = MainStruct();
 
+void SFX(const char* path) {
+    if (ndspChnIsPlaying(1)) return;
+
+    FILE* f = fopen(path, "rb");
+    if (!f) return;
+
+    fseek(f, 0, SEEK_END);
+    u32 size = ftell(f);
+    u32 dataSize = size - 44;
+    fseek(f, 44, SEEK_SET);
+
+    static u8* buffer = nullptr;
+    static ndspWaveBuf waveBuf;
+
+    if (buffer) {
+        linearFree(buffer);
+        buffer = nullptr;
+    }
+
+    buffer = (u8*)linearAlloc(dataSize);
+    if (!buffer) { fclose(f); return; }
+    fread(buffer, 1, dataSize, f);
+    fclose(f);
+
+    memset(&waveBuf, 0, sizeof(ndspWaveBuf));
+    waveBuf.data_vaddr = buffer;
+    waveBuf.nsamples = dataSize / 2;
+    waveBuf.looping = false;
+
+    DSP_FlushDataCache(buffer, dataSize);
+
+    ndspChnSetRate(1, 16000.0f);
+    ndspChnSetFormat(1, NDSP_FORMAT_MONO_PCM16);
+    ndspChnWaveBufAdd(1, &waveBuf);
+}
+
 static void sceneInit(void)
 {
 	C2D_SpriteSheet spriteSheet = C2D_SpriteSheetLoadFromMem(sheet_t3x, sheet_t3x_size);
@@ -42,7 +78,7 @@ static void sceneInit(void)
     C2D_SpriteSetPos(&mainStruct.nintendo_loaded_deselected, 165, 59);
     C2D_SpriteSetCenter(&mainStruct.bottom, 0.5f, 0.5f);
     C2D_SpriteSetPos(&mainStruct.bottom, 160, 120);
-	
+    
 	textBuf = C2D_TextBufNew(4096); // initialize the text buffer with a max glyph count of 4096
 }
 
@@ -50,11 +86,14 @@ int main()
 {
 	// Initialize the libs
     romfsInit();
+	fsInit();
+	cfguInit();
 	nsInit();
 	ndmuInit();
 	frdInit(false);
 	actInit(false);
     ndspInit();
+
 	gfxInitDefault();
 	
 	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
@@ -104,7 +143,7 @@ int main()
 		if (mainStruct.state == 0) {
 			exit = LumaValidation::checkIfLumaOptionsEnabled(&mainStruct, top_screen, bottom_screen, kDown, kHeld, touch);
 		} else {
-			exit = MainUI::drawUI(&mainStruct, top_screen, bottom_screen, kDown, kHeld, touch);
+            exit = MainUI::drawUI(&mainStruct, top_screen, bottom_screen, kDown, kHeld, touch);
 		}
 		
 		mainStruct.lastState = mainStruct.state;
@@ -114,7 +153,9 @@ int main()
 		
 		if (exit) break;
 	}
-
+    
+    SFX("romfs:/sfx/HOME_OPEN.wav");
+    
 	// Deinitialize the libs
 	C2D_Fini();
 	C3D_Fini();
@@ -123,13 +164,15 @@ int main()
 	actExit();
 	frdExit();
 	ndmuExit();
+	cfguExit();
+	fsExit();
 
 	if (mainStruct.needsReboot) {
 		NS_RebootSystem();
 	}
 
 	nsExit();
- romfsExit();
+    romfsExit();
 
 	return 0;
 }
