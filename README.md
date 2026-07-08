@@ -1,5 +1,5 @@
 # revNet
-**Brewtendo account manager for the 3DS.**
+**revTendo account manager for the 3DS.**
 
 ## Progress
 

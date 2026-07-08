@@ -33,7 +33,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 APP_TITLE       := 	revNet
 APP_DESCRIPTION := 	revNet
-APP_AUTHOR	:=	By vugbdok8307 and andrea__2209
+APP_AUTHOR	:=	By vugbdok8307 and pinecone__2209
 TARGET		:=	revnet
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules

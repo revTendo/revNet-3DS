@@ -26,15 +26,15 @@ namespace PatchSwap
     bool WriteHandoff();
     bool DeleteHandoff();
 
-    bool BackupBrewtendoPatches(MainStruct* mainStruct);
+    bool BackuprevTendoPatches(MainStruct* mainStruct);
     bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut);
-    bool DownloadBrewtendoPatches(MainStruct* mainStruct);
+    bool DownloadrevTendoPatches(MainStruct* mainStruct);
 
     bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest = nullptr);
     bool RestoreFromBackup(MainStruct* mainStruct);
 
     bool SwitchToPretendo(MainStruct* mainStruct, Manifest* manifestOut);
-    bool SwitchToBrewtendo(MainStruct* mainStruct);
+    bool SwitchTorevTendo(MainStruct* mainStruct);
 
     void DrawManifestInfo(const Manifest& manifest);
 }

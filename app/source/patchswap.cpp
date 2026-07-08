@@ -223,9 +223,9 @@ bool DeleteHandoff() {
     return std::remove(REVNET_HANDOFF_FILE) == 0;
 }
 
-bool BackupBrewtendoPatches(MainStruct* mainStruct) {
+bool BackuprevTendoPatches(MainStruct* mainStruct) {
     mainStruct->swapPhase     = SwapPhase::BackingUp;
-    mainStruct->swapStatusMsg = "Backing up Brewtendo patches...";
+    mainStruct->swapStatusMsg = "Backing up revTendo patches...";
 
     mkdir("/3ds", 0777);
     mkdir("/3ds/revnet", 0777);
@@ -343,9 +343,9 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
     return true;
 }
 
-bool DownloadBrewtendoPatches(MainStruct* mainStruct) {
+bool DownloadrevTendoPatches(MainStruct* mainStruct) {
     mainStruct->swapPhase     = SwapPhase::Downloading;
-    mainStruct->swapStatusMsg = "Fetching Brewtendo patches from CDN...";
+    mainStruct->swapStatusMsg = "Fetching revTendo patches from CDN...";
 
     mkdir("/3ds", 0777);
     mkdir("/3ds/revnet", 0777);
@@ -430,12 +430,12 @@ bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest) {
             if (restoreOK) {
                 mainStruct->swapStatusMsg = std::format(
                     "Move failed: {}\n"
-                    "Your Brewtendo patches have been restored.\n\n"
+                    "Your revTendo patches have been restored.\n\n"
                     "Press start to reboot.", filename);
             } else {
                 mainStruct->swapStatusMsg =
                     "Patches could not be installed or restored.\n"
-                    "Please open a support ticket on the Brewtendo Discord.\n\nPress start to reboot after getting support.";
+                    "Please open a support ticket on the revTendo Discord.\n\nPress start to reboot after getting support.";
             }
             wipeTempDir(REVNET_TEMP_PATH);
             return false;
@@ -460,7 +460,7 @@ bool RestoreFromBackup(MainStruct* mainStruct) {
 }
 
 bool SwitchToPretendo(MainStruct* mainStruct, Manifest* manifestOut) {
-    BackupBrewtendoPatches(mainStruct);
+    BackuprevTendoPatches(mainStruct);
 
     Manifest* m = new Manifest();
     memset(m, 0, sizeof(Manifest));
@@ -484,8 +484,8 @@ bool SwitchToPretendo(MainStruct* mainStruct, Manifest* manifestOut) {
     return true;
 }
 
-bool SwitchToBrewtendo(MainStruct* mainStruct) {
-    if (!DownloadBrewtendoPatches(mainStruct)) {
+bool SwitchTorevTendo(MainStruct* mainStruct) {
+    if (!DownloadrevTendoPatches(mainStruct)) {
         mainStruct->swapPhase = SwapPhase::Failed;
         return false;
     }

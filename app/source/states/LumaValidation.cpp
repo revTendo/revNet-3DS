@@ -71,7 +71,7 @@ void PlaySFX(const char* path) {
     ndspChnWaveBufAdd(1, &waveBuf);
 }
 
-static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
+static void doSwitchBackTorevTendo(MainStruct* mainStruct) {
     bool spaceOK = PatchSwap::CheckFreeSpace(mainStruct);
     if (!spaceOK) {
         mainStruct->swapStatusMsg = std::format(
@@ -79,7 +79,7 @@ static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
             mainStruct->sdFreeBytes / (1024 * 1024));
     }
 
-    bool ok = PatchSwap::SwitchToBrewtendo(mainStruct);
+    bool ok = PatchSwap::SwitchTorevTendo(mainStruct);
 
     if (!ok && mainStruct->swapPhase == SwapPhase::Failed) {
         if (mainStruct->errorString[0] == 0 && !mainStruct->swapStatusMsg.empty())
@@ -96,7 +96,7 @@ static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
                     "Fall back to local backup?\n"
                     "(Backup may be outdated)\n\n"
                     "A: Use backup    B: Cancel"),
-                PromptStatus::BrewtendoCDNFail);
+                PromptStatus::revTendoCDNFail);
         } else {
             fclose(t);
         }
@@ -127,13 +127,13 @@ static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
 }
 
 static void doRestoreFromBackup(MainStruct* mainStruct) {
-    mainStruct->swapStatusMsg = "Restoring Brewtendo patches from backup...";
+    mainStruct->swapStatusMsg = "Restoring revTendo patches from backup...";
     bool ok = PatchSwap::RestoreFromBackup(mainStruct);
 
     if (!ok) {
         LOG_REVNET_ERROR(mainStruct,
             "Backup restore failed. Please re-install revnet "
-            "or open a support ticket on the Brewtendo Discord.");
+            "or open a support ticket on the revTendo Discord.");
         aptSetHomeAllowed(false);
         mainStruct->needsReboot = true;
         return;
@@ -208,10 +208,10 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
 
             switch (status) {
                 case PromptStatus::PretendoIntercept:
-                    doSwitchBackToBrewtendo(mainStruct);
+                    doSwitchBackTorevTendo(mainStruct);
                     break;
 
-                case PromptStatus::BrewtendoCDNFail:
+                case PromptStatus::revTendoCDNFail:
                     doRestoreFromBackup(mainStruct);
                     break;
 
@@ -229,7 +229,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
                     doLaunchNimbus(mainStruct);
                     break;
 
-                case PromptStatus::BrewtendoCDNFail:
+                case PromptStatus::revTendoCDNFail:
                     mainStruct->pretendoInterceptActive = false;
                     mainStruct->state = 1;
                     break;
@@ -260,7 +260,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
             PlaySFX("romfs:/sfx/MES_INFO.wav");
             MainUI::openPrompt(mainStruct,
                 "Pretendo patches are currently active.\n\n"
-                "A: Switch back to Brewtendo\n"
+                "A: Switch back to revTendo\n"
                 "B: Exit revNet (open Nimbus yourself)",
                 PromptStatus::PretendoIntercept);
             MainUI::drawPrompt(mainStruct);
@@ -271,7 +271,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
     if (mainStruct->pretendoInterceptActive && !mainStruct->prompt.active) {
         MainUI::openPrompt(mainStruct,
             "Pretendo patches are currently active.\n\n"
-            "A: Switch back to Brewtendo\n"
+            "A: Switch back to revTendo\n"
             "B: Exit revNet (open Nimbus yourself)",
             PromptStatus::PretendoIntercept);
     }

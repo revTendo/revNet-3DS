@@ -44,7 +44,7 @@ static constexpr int REVNET_PATCH_FILE_COUNT =
 enum class NascEnvironment : u8 {
     NASC_ENV_Prod = 0, // Nintendo
     NASC_ENV_Test = 1, // Pretendo  
-    NASC_ENV_Dev  = 2  // Brewtendo 
+    NASC_ENV_Dev  = 2  // revTendo 
 };
 
 enum class CFWSystemInfoField : s32 {
@@ -72,7 +72,7 @@ enum class PromptStatus {
     PretendoSwitch,       
     PretendoSwitchLowSD,  
     PretendoIntercept,    
-    BrewtendoCDNFail,    
+    revTendoCDNFail,    
 };
 
 enum class SwapPhase {
