@@ -86,8 +86,8 @@ static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
             snprintf(mainStruct->errorString, sizeof(mainStruct->errorString),
                 "%s\n\nPress START to reboot.", mainStruct->swapStatusMsg.c_str());
         char testPath[256];
-        snprintf(testPath, sizeof(testPath), "%s/%s", AXIOM_TEMP_PATH,
-                 AXIOM_PATCH_FILES[0].filename);
+        snprintf(testPath, sizeof(testPath), "%s/%s", REVNET_TEMP_PATH,
+                 REVNET_PATCH_FILES[0].filename);
         FILE* t = fopen(testPath, "rb");
         if (!t) {
             MainUI::openPrompt(mainStruct,
@@ -114,7 +114,7 @@ static void doSwitchBackToBrewtendo(MainStruct* mainStruct) {
         }
 
         if (R_FAILED(rc)) {
-            LOGF_AXIOM_ERROR(mainStruct, "Account switch failed: %08lx.\n\nPress start to reboot.", rc);
+            LOGF_REVNET_ERROR(mainStruct, "Account switch failed: %08lx.\n\nPress start to reboot.", rc);
             aptSetHomeAllowed(false);
             mainStruct->needsReboot = true;
             return;
@@ -131,8 +131,8 @@ static void doRestoreFromBackup(MainStruct* mainStruct) {
     bool ok = PatchSwap::RestoreFromBackup(mainStruct);
 
     if (!ok) {
-        LOG_AXIOM_ERROR(mainStruct,
-            "Backup restore failed. Please re-install axiom "
+        LOG_REVNET_ERROR(mainStruct,
+            "Backup restore failed. Please re-install revnet "
             "or open a support ticket on the Brewtendo Discord.");
         aptSetHomeAllowed(false);
         mainStruct->needsReboot = true;
@@ -149,7 +149,7 @@ static void doRestoreFromBackup(MainStruct* mainStruct) {
     }
 
     if (R_FAILED(rc)) {
-        LOGF_AXIOM_ERROR(mainStruct, "Account switch failed: %08lx.\n\nPress start to reboot", rc);
+        LOGF_REVNET_ERROR(mainStruct, "Account switch failed: %08lx.\n\nPress start to reboot", rc);
         aptSetHomeAllowed(false);
         mainStruct->needsReboot = true;
         return;
@@ -187,7 +187,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
     C2D_SceneBegin(bottom_screen);
 
     if (!mainStruct->musicStarted) {
-        PlayBGM("romfs:/bgm/AXIOM_SETUP_BGM.wav");
+        PlayBGM("romfs:/bgm/REVNET_SETUP_BGM.wav");
         mainStruct->musicStarted = true;
     }
 
@@ -261,7 +261,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
             MainUI::openPrompt(mainStruct,
                 "Pretendo patches are currently active.\n\n"
                 "A: Switch back to Brewtendo\n"
-                "B: Exit Axiom (open Nimbus yourself)",
+                "B: Exit revNet (open Nimbus yourself)",
                 PromptStatus::PretendoIntercept);
             MainUI::drawPrompt(mainStruct);
             return false;
@@ -272,7 +272,7 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
         MainUI::openPrompt(mainStruct,
             "Pretendo patches are currently active.\n\n"
             "A: Switch back to Brewtendo\n"
-            "B: Exit Axiom (open Nimbus yourself)",
+            "B: Exit revNet (open Nimbus yourself)",
             PromptStatus::PretendoIntercept);
     }
 

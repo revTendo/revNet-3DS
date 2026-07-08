@@ -10,12 +10,12 @@
 #include <algorithm>
 #include <string>
 
-#define AXIOM_UPDATE_PATH       "/3ds/axiom/update"
-#define AXIOM_BACKUP_PATH       "/3ds/axiom/backup"
-#define AXIOM_TEMP_PATH         "/3ds/axiom/pretendo_temp"
-#define AXIOM_HANDOFF_FILE      "/3ds/axiom/pretendo_handoff"
-#define AXIOM_MANIFEST_URL      "https://cdn.brewtendo.cc/pretendo/manifest.json"
-#define AXIOM_CDN_BASE_URL      "https://cdn.brewtendo.cc/patches"
+#define REVNET_UPDATE_PATH       "/3ds/revnet/update"
+#define REVNET_BACKUP_PATH       "/3ds/revnet/backup"
+#define REVNET_TEMP_PATH         "/3ds/revnet/pretendo_temp"
+#define REVNET_HANDOFF_FILE      "/3ds/revnet/pretendo_handoff"
+#define REVNET_MANIFEST_URL      "https://cdn.brewtendo.cc/pretendo/manifest.json"
+#define REVNET_CDN_BASE_URL      "https://cdn.brewtendo.cc/patches"
 
 #define NIMBUS_TITLE_ID         0x000400000D40D200ULL
 
@@ -26,7 +26,7 @@ struct PatchFile {
     const char* lumaPath;   
 };
 
-static constexpr PatchFile AXIOM_PATCH_FILES[] = {
+static constexpr PatchFile REVNET_PATCH_FILES[] = {
     { "0004013000003202.ips", "/luma/sysmodules/0004013000003202.ips"      },
     { "0004013000003802.ips", "/luma/sysmodules/0004013000003802.ips"      },
     { "0004013000002902.ips", "/luma/sysmodules/0004013000002902.ips"      },
@@ -35,11 +35,11 @@ static constexpr PatchFile AXIOM_PATCH_FILES[] = {
     { "000400300000BC02.ips", "/luma/titles/000400300000BC02/code.ips"     },
     { "000400300000BD02.ips", "/luma/titles/000400300000BD02/code.ips"     },
     { "000400300000BE02.ips", "/luma/titles/000400300000BE02/code.ips"     },
-    { "axiom.3gx",            "/luma/plugins/axiom.3gx"                   },
+    { "revnet.3gx",            "/luma/plugins/revnet.3gx"                   },
     { "bver-prod.pem",        "/3ds/bver-prod.pem"                        },
 };
-static constexpr int AXIOM_PATCH_FILE_COUNT =
-    (int)(sizeof(AXIOM_PATCH_FILES) / sizeof(AXIOM_PATCH_FILES[0]));
+static constexpr int REVNET_PATCH_FILE_COUNT =
+    (int)(sizeof(REVNET_PATCH_FILES) / sizeof(REVNET_PATCH_FILES[0]));
 
 enum class NascEnvironment : u8 {
     NASC_ENV_Prod = 0, // Nintendo
@@ -68,7 +68,7 @@ enum class PromptResult {
 
 enum class PromptStatus {
     Unknown,
-    BNIDUnlink,
+    revIDUnlink,
     PretendoSwitch,       
     PretendoSwitchLowSD,  
     PretendoIntercept,    
@@ -148,12 +148,12 @@ const int  GetSystemInfoCFW  = 0x10000;
 const u32  defaultColor      = C2D_Color32(108, 98, 64, 255);
 const u32  infoColor         = C2D_Color32(45, 45, 44, 255);
 
-#define LOG_AXIOM_ERROR(mainStruct, fmt) \
+#define LOG_REVNET_ERROR(mainStruct, fmt) \
     if (mainStruct->errorString[0] == 0) {                                       \
         snprintf(mainStruct->errorString, sizeof(mainStruct->errorString), fmt); \
     }
 
-#define LOGF_AXIOM_ERROR(mainStruct, fmt, ...) \
+#define LOGF_REVNET_ERROR(mainStruct, fmt, ...) \
     if (mainStruct->errorString[0] == 0) {                                                    \
         snprintf(mainStruct->errorString, sizeof(mainStruct->errorString), fmt, __VA_ARGS__); \
     }
@@ -161,7 +161,7 @@ const u32  infoColor         = C2D_Color32(45, 45, 44, 255);
 #define handleResult(action, mainStruct, name) \
     rc = action;                                                                \
     if (R_FAILED(rc)) {                                                         \
-        LOGF_AXIOM_ERROR(mainStruct, "%s failed with error: %08lx", name, rc); \
+        LOGF_REVNET_ERROR(mainStruct, "%s failed with error: %08lx", name, rc); \
         printf("%s failed with error: %08lx\n\n", name, rc);                   \
     }
 

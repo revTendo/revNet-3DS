@@ -13,14 +13,14 @@ static const Result HTTPC_PENDING = (Result)HTTPC_RESULTCODE_DOWNLOADPENDING;
 static u32  s_socBuffer[0x20000 / 4];
 static bool s_socInitialized = false;
 
-static void axiomSocInit() {
+static void revnetSocInit() {
     if (!s_socInitialized) {
         Result rc = socInit(s_socBuffer, sizeof(s_socBuffer));
         if (R_SUCCEEDED(rc)) s_socInitialized = true;
     }
 }
 
-static void axiomSocExit() {
+static void revnetSocExit() {
     if (s_socInitialized) {
         socExit();
         s_socInitialized = false;
@@ -61,9 +61,9 @@ static bool copyFile(const char* src, const char* dst) {
 }
 
 static void wipeTempDir(const char* dir) {
-    for (int i = 0; i < AXIOM_PATCH_FILE_COUNT; i++) {
+    for (int i = 0; i < REVNET_PATCH_FILE_COUNT; i++) {
         char path[256];
-        snprintf(path, sizeof(path), "%s/%s", dir, AXIOM_PATCH_FILES[i].filename);
+        snprintf(path, sizeof(path), "%s/%s", dir, REVNET_PATCH_FILES[i].filename);
         std::remove(path);
     }
     char manifestPath[256];
@@ -104,7 +104,7 @@ static Result httpcDownloadFile(MainStruct* mainStruct, const char* url, const c
     }
 
     httpcSetSSLOpt(&ctx, SSLCOPT_DisableVerify);
-    httpcAddRequestHeaderField(&ctx, "User-Agent", "Axiom/1.0 (3DS)");
+    httpcAddRequestHeaderField(&ctx, "User-Agent", "revNet/1.0 (3DS)");
 
     rc = httpcBeginRequest(&ctx);
     if (R_FAILED(rc)) {
@@ -158,7 +158,7 @@ static char* httpcDownloadString(MainStruct* mainStruct, const char* url) {
     if (R_FAILED(rc)) return nullptr;
 
     httpcSetSSLOpt(&ctx, SSLCOPT_DisableVerify);
-    httpcAddRequestHeaderField(&ctx, "User-Agent", "Axiom/1.0 (3DS)");
+    httpcAddRequestHeaderField(&ctx, "User-Agent", "revNet/1.0 (3DS)");
 
     rc = httpcBeginRequest(&ctx);
     if (R_FAILED(rc)) { httpcCloseContext(&ctx); return nullptr; }
@@ -203,7 +203,7 @@ bool CheckFreeSpace(MainStruct* mainStruct) {
 }
 
 bool HandoffExists() {
-    FILE* f = fopen(AXIOM_HANDOFF_FILE, "r");
+    FILE* f = fopen(REVNET_HANDOFF_FILE, "r");
     if (!f) return false;
     fclose(f);
     return true;
@@ -211,16 +211,16 @@ bool HandoffExists() {
 
 bool WriteHandoff() {
     mkdir("/3ds", 0777);
-    mkdir("/3ds/axiom", 0777);
-    FILE* f = fopen(AXIOM_HANDOFF_FILE, "w");
+    mkdir("/3ds/revnet", 0777);
+    FILE* f = fopen(REVNET_HANDOFF_FILE, "w");
     if (!f) return false;
-    fprintf(f, "axiom_pretendo_handoff=1\n");
+    fprintf(f, "revnet_pretendo_handoff=1\n");
     fclose(f);
     return true;
 }
 
 bool DeleteHandoff() {
-    return std::remove(AXIOM_HANDOFF_FILE) == 0;
+    return std::remove(REVNET_HANDOFF_FILE) == 0;
 }
 
 bool BackupBrewtendoPatches(MainStruct* mainStruct) {
@@ -228,15 +228,15 @@ bool BackupBrewtendoPatches(MainStruct* mainStruct) {
     mainStruct->swapStatusMsg = "Backing up Brewtendo patches...";
 
     mkdir("/3ds", 0777);
-    mkdir("/3ds/axiom", 0777);
-    mkdir(AXIOM_BACKUP_PATH, 0777);
+    mkdir("/3ds/revnet", 0777);
+    mkdir(REVNET_BACKUP_PATH, 0777);
 
-    for (int i = 0; i < AXIOM_PATCH_FILE_COUNT; i++) {
-        const PatchFile& pf = AXIOM_PATCH_FILES[i];
+    for (int i = 0; i < REVNET_PATCH_FILE_COUNT; i++) {
+        const PatchFile& pf = REVNET_PATCH_FILES[i];
         char dstPath[256];
-        snprintf(dstPath, sizeof(dstPath), "%s/%s", AXIOM_BACKUP_PATH, pf.filename);
+        snprintf(dstPath, sizeof(dstPath), "%s/%s", REVNET_BACKUP_PATH, pf.filename);
         mainStruct->swapStatusMsg = std::format("Backing up {} ({}/{})",
-            pf.filename, i + 1, AXIOM_PATCH_FILE_COUNT);
+            pf.filename, i + 1, REVNET_PATCH_FILE_COUNT);
         copyFile(pf.lumaPath, dstPath);
     }
     return true;
@@ -247,23 +247,23 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
     mainStruct->swapStatusMsg = "Fetching Pretendo patch manifest...";
 
     mkdir("/3ds", 0777);
-    mkdir("/3ds/axiom", 0777);
-    mkdir(AXIOM_TEMP_PATH, 0777);
+    mkdir("/3ds/revnet", 0777);
+    mkdir(REVNET_TEMP_PATH, 0777);
 
     
-    axiomSocInit();
+    revnetSocInit();
     httpcInit(0);
 
-    char* jsonBuf = httpcDownloadString(mainStruct, AXIOM_MANIFEST_URL);
+    char* jsonBuf = httpcDownloadString(mainStruct, REVNET_MANIFEST_URL);
     if (!jsonBuf) {
         httpcExit();
-        axiomSocExit();
+        revnetSocExit();
         mainStruct->swapStatusMsg = "Failed to fetch manifest. Check your internet connection.";
         return false;
     }
 
     char manifestPath[256];
-    snprintf(manifestPath, sizeof(manifestPath), "%s/manifest.json", AXIOM_TEMP_PATH);
+    snprintf(manifestPath, sizeof(manifestPath), "%s/manifest.json", REVNET_TEMP_PATH);
     FILE* mf = fopen(manifestPath, "w");
     if (mf) { fputs(jsonBuf, mf); fclose(mf); }
 
@@ -294,9 +294,9 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
 
     if (m->fileCount == 0) {
         httpcExit();
-        axiomSocExit();
+        revnetSocExit();
         mainStruct->swapStatusMsg = "Manifest contained no files.";
-        wipeTempDir(AXIOM_TEMP_PATH);
+        wipeTempDir(REVNET_TEMP_PATH);
         delete m;
         return false;
     }
@@ -304,7 +304,7 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
     for (int i = 0; i < m->fileCount; i++) {
         ManifestEntry& entry = m->files[i];
         char destPath[256];
-        snprintf(destPath, sizeof(destPath), "%s/%s", AXIOM_TEMP_PATH, entry.filename);
+        snprintf(destPath, sizeof(destPath), "%s/%s", REVNET_TEMP_PATH, entry.filename);
 
         mainStruct->swapStatusMsg = std::format("Downloading {} ({}/{})",
             entry.filename, i + 1, m->fileCount);
@@ -312,11 +312,11 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
         Result rc = httpcDownloadFile(mainStruct, entry.url, destPath);
         if (R_FAILED(rc)) {
             httpcExit();
-            axiomSocExit();
+            revnetSocExit();
             mainStruct->swapStatusMsg = std::format(
                 "Download failed: {} (error {:08X})\n\nPress start to reboot.",
                 entry.filename, (uint32_t)rc);
-            wipeTempDir(AXIOM_TEMP_PATH);
+            wipeTempDir(REVNET_TEMP_PATH);
             delete m;
             return false;
         }
@@ -326,18 +326,18 @@ bool DownloadPretendoPatches(MainStruct* mainStruct, Manifest* manifestOut) {
 
         if (!verifySHA256(destPath, entry.sha256)) {
             httpcExit();
-            axiomSocExit();
+            revnetSocExit();
             mainStruct->swapStatusMsg = std::format(
                 "Hash mismatch: {} — possible tampering or corruption.\n\nPress start to reboot.",
                 entry.filename);
-            wipeTempDir(AXIOM_TEMP_PATH);
+            wipeTempDir(REVNET_TEMP_PATH);
             delete m;
             return false;
         }
     }
 
     httpcExit();
-    axiomSocExit();
+    revnetSocExit();
     if (manifestOut) *manifestOut = *m;
     delete m;
     return true;
@@ -348,36 +348,36 @@ bool DownloadBrewtendoPatches(MainStruct* mainStruct) {
     mainStruct->swapStatusMsg = "Fetching Brewtendo patches from CDN...";
 
     mkdir("/3ds", 0777);
-    mkdir("/3ds/axiom", 0777);
-    mkdir(AXIOM_TEMP_PATH, 0777);
+    mkdir("/3ds/revnet", 0777);
+    mkdir(REVNET_TEMP_PATH, 0777);
 
     
-    axiomSocInit();
+    revnetSocInit();
     httpcInit(0);
 
-    for (int i = 0; i < AXIOM_PATCH_FILE_COUNT; i++) {
-        const PatchFile& pf = AXIOM_PATCH_FILES[i];
+    for (int i = 0; i < REVNET_PATCH_FILE_COUNT; i++) {
+        const PatchFile& pf = REVNET_PATCH_FILES[i];
         char url[512], destPath[256];
-        snprintf(url,      sizeof(url),      "%s/%s", AXIOM_CDN_BASE_URL, pf.filename);
-        snprintf(destPath, sizeof(destPath), "%s/%s", AXIOM_TEMP_PATH,    pf.filename);
+        snprintf(url,      sizeof(url),      "%s/%s", REVNET_CDN_BASE_URL, pf.filename);
+        snprintf(destPath, sizeof(destPath), "%s/%s", REVNET_TEMP_PATH,    pf.filename);
 
         mainStruct->swapStatusMsg = std::format("Downloading {} ({}/{})",
-            pf.filename, i + 1, AXIOM_PATCH_FILE_COUNT);
+            pf.filename, i + 1, REVNET_PATCH_FILE_COUNT);
 
         Result rc = httpcDownloadFile(mainStruct, url, destPath);
         if (R_FAILED(rc)) {
             httpcExit();
-            axiomSocExit();
+            revnetSocExit();
             mainStruct->swapStatusMsg = std::format(
                 "CDN download failed: {} (error {:08X})",
                 pf.filename, (uint32_t)rc);
-            wipeTempDir(AXIOM_TEMP_PATH);
+            wipeTempDir(REVNET_TEMP_PATH);
             return false;
         }
     }
 
     httpcExit();
-    axiomSocExit();
+    revnetSocExit();
     return true;
 }
 
@@ -394,7 +394,7 @@ bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest) {
     mkdir("/luma/titles/000400300000BE02", 0777);
     mkdir("/3ds", 0777);
 
-    int fileCount = manifest ? manifest->fileCount : AXIOM_PATCH_FILE_COUNT;
+    int fileCount = manifest ? manifest->fileCount : REVNET_PATCH_FILE_COUNT;
 
     for (int i = 0; i < fileCount; i++) {
         const char* filename;
@@ -404,12 +404,12 @@ bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest) {
             filename = manifest->files[i].filename;
             lumaPath = manifest->files[i].dest;
         } else {
-            filename = AXIOM_PATCH_FILES[i].filename;
-            lumaPath = AXIOM_PATCH_FILES[i].lumaPath;
+            filename = REVNET_PATCH_FILES[i].filename;
+            lumaPath = REVNET_PATCH_FILES[i].lumaPath;
         }
 
         char srcPath[256];
-        snprintf(srcPath, sizeof(srcPath), "%s/%s", AXIOM_TEMP_PATH, filename);
+        snprintf(srcPath, sizeof(srcPath), "%s/%s", REVNET_TEMP_PATH, filename);
 
         mainStruct->swapStatusMsg = std::format("Installing {} ({}/{})",
             filename, i + 1, fileCount);
@@ -423,7 +423,7 @@ bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest) {
                 if (manifest)
                     std::remove(manifest->files[j].dest);
                 else
-                    std::remove(AXIOM_PATCH_FILES[j].lumaPath);
+                    std::remove(REVNET_PATCH_FILES[j].lumaPath);
             }
 
             bool restoreOK = RestoreFromBackup(mainStruct);
@@ -437,26 +437,26 @@ bool MoveTempToLuma(MainStruct* mainStruct, Manifest* manifest) {
                     "Patches could not be installed or restored.\n"
                     "Please open a support ticket on the Brewtendo Discord.\n\nPress start to reboot after getting support.";
             }
-            wipeTempDir(AXIOM_TEMP_PATH);
+            wipeTempDir(REVNET_TEMP_PATH);
             return false;
         }
     }
 
-    wipeTempDir(AXIOM_TEMP_PATH);
+    wipeTempDir(REVNET_TEMP_PATH);
     return true;
 }
 
 bool RestoreFromBackup(MainStruct* mainStruct) {
     mainStruct->swapStatusMsg = "Restoring from backup...";
     int restored = 0;
-    for (int i = 0; i < AXIOM_PATCH_FILE_COUNT; i++) {
-        const PatchFile& pf = AXIOM_PATCH_FILES[i];
+    for (int i = 0; i < REVNET_PATCH_FILE_COUNT; i++) {
+        const PatchFile& pf = REVNET_PATCH_FILES[i];
         char srcPath[256];
-        snprintf(srcPath, sizeof(srcPath), "%s/%s", AXIOM_BACKUP_PATH, pf.filename);
+        snprintf(srcPath, sizeof(srcPath), "%s/%s", REVNET_BACKUP_PATH, pf.filename);
         std::remove(pf.lumaPath);
         if (copyFile(srcPath, pf.lumaPath)) restored++;
     }
-    return restored == AXIOM_PATCH_FILE_COUNT;
+    return restored == REVNET_PATCH_FILE_COUNT;
 }
 
 bool SwitchToPretendo(MainStruct* mainStruct, Manifest* manifestOut) {

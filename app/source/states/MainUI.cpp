@@ -6,13 +6,13 @@
 #include "../plgldr.h"
 #include "../patchswap.hpp"
 
-const char *AXIOM_PLUGIN       = "/luma/plugins/axiom.3gx";
-const char *AXIOM_PLUGIN_MAGIC = "AXOM";
-constexpr u32 AXIOM_PLUGIN_VERSION = SYSTEM_VERSION(1, 0, 0);
+const char *REVNET_PLUGIN       = "/luma/plugins/revnet.3gx";
+const char *REVNET_PLUGIN_MAGIC = "AXOM";
+constexpr u32 REVNET_PLUGIN_VERSION = SYSTEM_VERSION(1, 0, 0);
 
-Result retBNID      = 0;
-u32    bnidAccountSlot = 0;
-AccountId bnid      = {};
+Result retrevID      = 0;
+u32    revidAccountSlot = 0;
+AccountId revid      = {};
 
 
 void loadAndPlayBGM(const char* path) {
@@ -130,22 +130,22 @@ void MainUI::migrateAccount(MainStruct *mainStruct) {
     Result rc = 0;
     u32 pretendo_account_index = 0;
     handleResult(ACT_GetAccountIndexOfFriendAccountId(&pretendo_account_index, 2),
-                 mainStruct, "Get BNID for migration");
+                 mainStruct, "Get revID for migration");
     if (pretendo_account_index != 0) {
         bool is_commited = false;
         handleResult(ACT_GetAccountInfo(&is_commited, sizeof(bool), pretendo_account_index,
-                     INFO_TYPE_IS_COMMITTED), mainStruct, "Get BNID commit status");
+                     INFO_TYPE_IS_COMMITTED), mainStruct, "Get revID commit status");
         if (!is_commited)
-            handleResult(ACTA_CommitConsoleAccount(pretendo_account_index), mainStruct, "Commit BNID");
+            handleResult(ACTA_CommitConsoleAccount(pretendo_account_index), mainStruct, "Commit revID");
     }
 }
 
-void MainUI::unlinkBNID(MainStruct *mainStruct) {
-    if (R_FAILED(retBNID = ACTA_UnbindServerAccount(bnidAccountSlot, true))) {
-        LOG_AXIOM_ERROR(mainStruct,
-            std::format("ACTA_UnbindServerAccount failed with error code {}!", retBNID).c_str());
+void MainUI::unlinkrevID(MainStruct *mainStruct) {
+    if (R_FAILED(retrevID = ACTA_UnbindServerAccount(revidAccountSlot, true))) {
+        LOG_REVNET_ERROR(mainStruct,
+            std::format("ACTA_UnbindServerAccount failed with error code {}!", retrevID).c_str());
     } else {
-        LOG_AXIOM_ERROR(mainStruct, "Successfully unlinked BNID!");
+        LOG_REVNET_ERROR(mainStruct, "Successfully unlinked revID!");
         loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
     }
 }
@@ -159,9 +159,9 @@ void MainUI::launchPlugin(MainStruct *mainStruct) {
     plgparam.pluginMemoryStrategy = PLG_STRATEGY_SWAP;
     plgparam.persistent           = 1;
     plgparam.lowTitleId           = 0;
-    strcpy(plgparam.path, AXIOM_PLUGIN);
-    strcpy(reinterpret_cast<char*>(plgparam.config), AXIOM_PLUGIN_MAGIC);
-    plgparam.config[1] = AXIOM_PLUGIN_VERSION;
+    strcpy(plgparam.path, REVNET_PLUGIN);
+    strcpy(reinterpret_cast<char*>(plgparam.config), REVNET_PLUGIN_MAGIC);
+    plgparam.config[1] = REVNET_PLUGIN_VERSION;
 
     handleResult(plgLdrInit(), mainStruct, "Initialize plg:ldr");
     if (R_FAILED(rc)) return;
@@ -171,7 +171,7 @@ void MainUI::launchPlugin(MainStruct *mainStruct) {
     if (R_FAILED(rc)) { plgLdrExit(); return; }
 
     if (version < SYSTEM_VERSION(1, 0, 2)) {
-        LOG_AXIOM_ERROR(mainStruct, "Unsupported plg:ldr version, please update Luma3DS");
+        LOG_REVNET_ERROR(mainStruct, "Unsupported plg:ldr version, please update Luma3DS");
         plgLdrExit();
         return;
     }
@@ -186,7 +186,7 @@ void MainUI::launchPlugin(MainStruct *mainStruct) {
     handleResult(PLGLDR__SetPluginLoadParameters(&plgparam), mainStruct, "Set plugin load params");
     plgLdrExit();
 
-    LOG_AXIOM_ERROR(mainStruct, "Axiom plugin ready! Launch a game from the Home Menu");
+    LOG_REVNET_ERROR(mainStruct, "revNet plugin ready! Launch a game from the Home Menu");
     loadAndPlaySFX("romfs:/sfx/SFX_PUGIN_START.wav");
 }
 
@@ -276,7 +276,7 @@ static void doSwitchToPretendo(MainStruct* mainStruct) {
 
     if (R_FAILED(rc)) {
         PatchSwap::WriteHandoff();
-        LOGF_AXIOM_ERROR(mainStruct,
+        LOGF_REVNET_ERROR(mainStruct,
             "Pretendo patches installed but account switch failed: %08lx\n"
             "Open Nimbus to finish account setup.\n\nPress start to reboot.", rc);
         aptSetHomeAllowed(false);
@@ -288,7 +288,7 @@ static void doSwitchToPretendo(MainStruct* mainStruct) {
     mainStruct->swapPhase = SwapPhase::Done;
     loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
 
-    LOGF_AXIOM_ERROR(mainStruct,
+    LOGF_REVNET_ERROR(mainStruct,
         "Switched to Pretendo! Source: %s\nRelease: %s  Commit: %.8s\n\nPress start to reboot.",
         manifest->source, manifest->release, manifest->commit);
     aptSetHomeAllowed(false);
@@ -299,50 +299,50 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                     C3D_RenderTarget* bottom_screen, u32 kDown, u32 kHeld, touchPosition touch)
 {
     if (!mainStruct->musicStarted) {
-        loadAndPlayBGM("romfs:/bgm/AXIOM_MAIN_BGM.wav");
+        loadAndPlayBGM("romfs:/bgm/REVNET_MAIN_BGM.wav");
         mainStruct->musicStarted = true;
     }
  
     if (!mainStruct->updateChecked) {
         mainStruct->updateChecked = true;
-        if (auto* updateCheck = std::fopen(AXIOM_UPDATE_PATH "/update.txt", "rb")) {
+        if (auto* updateCheck = std::fopen(REVNET_UPDATE_PATH "/update.txt", "rb")) {
             std::fclose(updateCheck);
             migrateAccount(mainStruct);
             if (mainStruct->errorString[0] == 0) {
                 mkdir("/luma", 0777);
                 mkdir("/luma/sysmodules", 0777);
                 std::remove("/luma/sysmodules/0004013000003202.ips");
-                std::rename(AXIOM_UPDATE_PATH "/0004013000003202.ips", "/luma/sysmodules/0004013000003202.ips");
+                std::rename(REVNET_UPDATE_PATH "/0004013000003202.ips", "/luma/sysmodules/0004013000003202.ips");
                 std::remove("/luma/sysmodules/0004013000003802.ips");
-                std::rename(AXIOM_UPDATE_PATH "/0004013000003802.ips", "/luma/sysmodules/0004013000003802.ips");
+                std::rename(REVNET_UPDATE_PATH "/0004013000003802.ips", "/luma/sysmodules/0004013000003802.ips");
                 std::remove("/luma/sysmodules/0004013000002902.ips");
-                std::rename(AXIOM_UPDATE_PATH "/0004013000002902.ips", "/luma/sysmodules/0004013000002902.ips");
+                std::rename(REVNET_UPDATE_PATH "/0004013000002902.ips", "/luma/sysmodules/0004013000002902.ips");
                 std::remove("/luma/sysmodules/0004013000002E02.ips");
-                std::rename(AXIOM_UPDATE_PATH "/0004013000002E02.ips", "/luma/sysmodules/0004013000002E02.ips");
+                std::rename(REVNET_UPDATE_PATH "/0004013000002E02.ips", "/luma/sysmodules/0004013000002E02.ips");
                 std::remove("/luma/sysmodules/0004013000002F02.ips");
-                std::rename(AXIOM_UPDATE_PATH "/0004013000002F02.ips", "/luma/sysmodules/0004013000002F02.ips");
+                std::rename(REVNET_UPDATE_PATH "/0004013000002F02.ips", "/luma/sysmodules/0004013000002F02.ips");
  
                 mkdir("/luma/titles", 0777);
                 mkdir("/luma/titles/000400300000BC02", 0777);
                 std::remove("/luma/titles/000400300000BC02/code.ips");
-                std::rename(AXIOM_UPDATE_PATH "/000400300000BC02.ips", "/luma/titles/000400300000BC02/code.ips");
+                std::rename(REVNET_UPDATE_PATH "/000400300000BC02.ips", "/luma/titles/000400300000BC02/code.ips");
                 mkdir("/luma/titles/000400300000BD02", 0777);
                 std::remove("/luma/titles/000400300000BD02/code.ips");
-                std::rename(AXIOM_UPDATE_PATH "/000400300000BD02.ips", "/luma/titles/000400300000BD02/code.ips");
+                std::rename(REVNET_UPDATE_PATH "/000400300000BD02.ips", "/luma/titles/000400300000BD02/code.ips");
                 mkdir("/luma/titles/000400300000BE02", 0777);
                 std::remove("/luma/titles/000400300000BE02/code.ips");
-                std::rename(AXIOM_UPDATE_PATH "/000400300000BE02.ips", "/luma/titles/000400300000BE02/code.ips");
+                std::rename(REVNET_UPDATE_PATH "/000400300000BE02.ips", "/luma/titles/000400300000BE02/code.ips");
  
                 mkdir("/luma/plugins", 0777);
-                std::remove("/luma/plugins/axiom.3gx");
-                std::rename(AXIOM_UPDATE_PATH "/axiom.3gx", "/luma/plugins/axiom.3gx");
+                std::remove("/luma/plugins/revnet.3gx");
+                std::rename(REVNET_UPDATE_PATH "/revnet.3gx", "/luma/plugins/revnet.3gx");
  
                 std::remove("/3ds/bver-prod.pem");
-                std::rename(AXIOM_UPDATE_PATH "/bver-prod.pem", "/3ds/bver-prod.pem");
+                std::rename(REVNET_UPDATE_PATH "/bver-prod.pem", "/3ds/bver-prod.pem");
  
-                std::remove(AXIOM_UPDATE_PATH "/update.txt");
+                std::remove(REVNET_UPDATE_PATH "/update.txt");
             }
-            LOG_AXIOM_ERROR(mainStruct, "Axiom has been updated!\n\nPress start to reboot.");
+            LOG_REVNET_ERROR(mainStruct, "revNet has been updated!\n\nPress start to reboot.");
             loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
             aptSetHomeAllowed(false);
             mainStruct->needsReboot     = true;
@@ -361,8 +361,8 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
             mainStruct->prompt.result  = PromptResult::None;
             mainStruct->prompt.active  = false;
             switch (status) {
-                case PromptStatus::BNIDUnlink:
-                    unlinkBNID(mainStruct);
+                case PromptStatus::revIDUnlink:
+                    unlinkrevID(mainStruct);
                     break;
                 case PromptStatus::PretendoSwitch:
                     doSwitchToPretendo(mainStruct);
@@ -371,7 +371,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                     doSwitchToPretendo(mainStruct);
                     break;
                 default:
-                    LOG_AXIOM_ERROR(mainStruct, "Unknown prompt called.");
+                    LOG_REVNET_ERROR(mainStruct, "Unknown prompt called.");
                     break;
             }
             return false;
@@ -479,30 +479,30 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
         }
  
         if (kDown & KEY_X) {
-            if (R_SUCCEEDED(retBNID)) {
-                if (R_FAILED(retBNID = ACT_GetAccountIndexOfFriendAccountId(&bnidAccountSlot, 3)))
-                    LOG_AXIOM_ERROR(mainStruct,
-                        std::format("ACT_GetAccountIndexOfFriendAccountId failed: {}!", retBNID).c_str());
+            if (R_SUCCEEDED(retrevID)) {
+                if (R_FAILED(retrevID = ACT_GetAccountIndexOfFriendAccountId(&revidAccountSlot, 3)))
+                    LOG_REVNET_ERROR(mainStruct,
+                        std::format("ACT_GetAccountIndexOfFriendAccountId failed: {}!", retrevID).c_str());
             }
-            if (bnidAccountSlot == 0) {
-                LOG_AXIOM_ERROR(mainStruct, "There is no BNID linked on this console!");
+            if (revidAccountSlot == 0) {
+                LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
                 loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
             }
-            if (R_SUCCEEDED(retBNID)) {
-                if (R_FAILED(retBNID = ACT_GetAccountInfo(bnid, sizeof(bnid), bnidAccountSlot, INFO_TYPE_ACCOUNT_ID))) {
-                    LOG_AXIOM_ERROR(mainStruct,
-                        std::format("ACT_GetAccountInfo failed: {}!", retBNID).c_str());
+            if (R_SUCCEEDED(retrevID)) {
+                if (R_FAILED(retrevID = ACT_GetAccountInfo(revid, sizeof(revid), revidAccountSlot, INFO_TYPE_ACCOUNT_ID))) {
+                    LOG_REVNET_ERROR(mainStruct,
+                        std::format("ACT_GetAccountInfo failed: {}!", retrevID).c_str());
                     loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
                 }
             }
-            if (R_SUCCEEDED(retBNID)) {
-                if (bnid[0] != '\0') {
+            if (R_SUCCEEDED(retrevID)) {
+                if (revid[0] != '\0') {
                     openPrompt(mainStruct,
-                        std::format("Are you sure you would like to unlink your BNID {}? "
-                                    "Your BNID can be relinked at any time.", bnid),
-                        PromptStatus::BNIDUnlink);
+                        std::format("Are you sure you would like to unlink your revID {}? "
+                                    "Your revID can be relinked at any time.", revid),
+                        PromptStatus::revIDUnlink);
                 } else {
-                    LOG_AXIOM_ERROR(mainStruct, "There is no BNID linked on this console!");
+                    LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
                     loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
                 }
             }

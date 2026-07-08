@@ -1,6 +1,5 @@
-# Axiom
+# revNet
 **Brewtendo account manager for the 3DS.**
-*Proxyless patcher*
 
 ## Progress
 
@@ -10,10 +9,10 @@
 | Badge Arcade | Unavailable |
 | Nintendo Video | Unavailable |
 | SpotPass | Unavailable |
-| BNID | Signing in works unlinking does not |
-| Miiverse | Works |
-| Friend List | Won't ever be supported |
-| Axiom (Proxyless patcher) | Works, but still is buggy |
+| revID | Unavailable |
+| Miiverse | Unavailable |
+| Friend List | Unavailable |
+| revNet | Unavailable |
 | Games | Unavailable |
 | Theme Shop | Unavailable |
 
