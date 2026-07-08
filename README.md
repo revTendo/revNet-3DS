@@ -12,7 +12,7 @@
 | revID | Unavailable |
 | Miiverse | Unavailable |
 | Friend List | Unavailable |
-| revNet | Unavailable |
+| revNet | Being worked on |
 | Games | Unavailable |
 | Theme Shop | Unavailable |
 

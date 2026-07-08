@@ -401,28 +401,28 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
             C2D_DrawSprite(&mainStruct->nintendo_loaded_selected);
-            C2D_DrawSprite(&mainStruct->brewtendo_unloaded_deselected);
+            C2D_DrawSprite(&mainStruct->revtendo_unloaded_deselected);
         } else if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Dev) {
             C2D_DrawSprite(&mainStruct->nintendo_unloaded_selected);
-            C2D_DrawSprite(&mainStruct->brewtendo_loaded_deselected);
+            C2D_DrawSprite(&mainStruct->revtendo_loaded_deselected);
         } else {
             C2D_DrawSprite(&mainStruct->nintendo_unloaded_selected);
-            C2D_DrawSprite(&mainStruct->brewtendo_unloaded_deselected);
+            C2D_DrawSprite(&mainStruct->revtendo_unloaded_deselected);
         }
     } else if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Dev) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Dev) {
             C2D_DrawSprite(&mainStruct->nintendo_unloaded_deselected);
-            C2D_DrawSprite(&mainStruct->brewtendo_loaded_selected);
+            C2D_DrawSprite(&mainStruct->revtendo_loaded_selected);
         } else if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
             C2D_DrawSprite(&mainStruct->nintendo_loaded_deselected);
-            C2D_DrawSprite(&mainStruct->brewtendo_unloaded_selected);
+            C2D_DrawSprite(&mainStruct->revtendo_unloaded_selected);
         } else {
             C2D_DrawSprite(&mainStruct->nintendo_unloaded_deselected);
-            C2D_DrawSprite(&mainStruct->brewtendo_unloaded_selected);
+            C2D_DrawSprite(&mainStruct->revtendo_unloaded_selected);
         }
     } else {
         C2D_DrawSprite(&mainStruct->nintendo_unloaded_deselected);
-        C2D_DrawSprite(&mainStruct->brewtendo_unloaded_deselected);
+        C2D_DrawSprite(&mainStruct->revtendo_unloaded_deselected);
     }
     C2D_DrawSprite(&mainStruct->header);
     drawPrompt(mainStruct);

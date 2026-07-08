@@ -141,9 +141,9 @@ replace_function_addr equ 0x11AA70
 		.asciiz "pokemon-gl.com"
 	
 	replacementrevTendo:
-		.asciiz "brewtendo.cc"
+		.asciiz "revtendo.com"
 
-	replacementBrewtendo:
+	replacementrevTendo:
 		.asciiz "revtendo.com"
 
 

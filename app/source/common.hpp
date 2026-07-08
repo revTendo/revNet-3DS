@@ -14,8 +14,8 @@
 #define REVNET_BACKUP_PATH       "/3ds/revnet/backup"
 #define REVNET_TEMP_PATH         "/3ds/revnet/pretendo_temp"
 #define REVNET_HANDOFF_FILE      "/3ds/revnet/pretendo_handoff"
-#define REVNET_MANIFEST_URL      "https://cdn.brewtendo.cc/pretendo/manifest.json"
-#define REVNET_CDN_BASE_URL      "https://cdn.brewtendo.cc/patches"
+#define REVNET_MANIFEST_URL      "https://cdn.revtendo.com/pretendo/manifest.json"
+#define REVNET_CDN_BASE_URL      "https://cdn.revtendo.com/patches"
 
 #define NIMBUS_TITLE_ID         0x000400000D40D200ULL
 
@@ -102,10 +102,10 @@ struct MainStruct {
     C2D_Sprite nintendo_unloaded_selected;
     C2D_Sprite nintendo_loaded_selected;
     C2D_Sprite nintendo_loaded_deselected;
-    C2D_Sprite brewtendo_unloaded_deselected;
-    C2D_Sprite brewtendo_unloaded_selected;
-    C2D_Sprite brewtendo_loaded_selected;
-    C2D_Sprite brewtendo_loaded_deselected;
+    C2D_Sprite revtendo_unloaded_deselected;
+    C2D_Sprite revtendo_unloaded_selected;
+    C2D_Sprite revtendo_loaded_selected;
+    C2D_Sprite revtendo_loaded_deselected;
     C2D_Sprite top;
     C2D_Sprite bottom;
 

@@ -2,24 +2,215 @@
 <Workspace
    version = "1.0">
    <Group
-      location = "group:Audacity files"
-      name = "Audacity files">
-      <FileRef
-         location = "group:BANNER_audio.aup3">
-      </FileRef>
-      <FileRef
-         location = "group:AXIOM_BGM.aup3">
-      </FileRef>
+      location = "group:app"
+      name = "app">
+      <Group
+         location = "group:source"
+         name = "source">
+         <FileRef
+            location = "group:common.cpp">
+         </FileRef>
+         <FileRef
+            location = "group:plgldr.h">
+         </FileRef>
+         <FileRef
+            location = "group:csvc.h">
+         </FileRef>
+         <FileRef
+            location = "group:csvc.s">
+         </FileRef>
+         <FileRef
+            location = "group:patchswap.hpp">
+         </FileRef>
+         <FileRef
+            location = "group:plgldr.c">
+         </FileRef>
+         <FileRef
+            location = "group:patchswap.cpp">
+         </FileRef>
+         <Group
+            location = "group:states"
+            name = "states">
+            <FileRef
+               location = "group:LumaValidation.cpp">
+            </FileRef>
+            <FileRef
+               location = "group:MainUI.hpp">
+            </FileRef>
+            <FileRef
+               location = "group:MainUI.cpp">
+            </FileRef>
+            <FileRef
+               location = "group:LumaValidation.hpp">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:sysmodules"
+            name = "sysmodules">
+            <FileRef
+               location = "group:acta.hpp">
+            </FileRef>
+            <FileRef
+               location = "group:acta.cpp">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:common.hpp">
+         </FileRef>
+         <FileRef
+            location = "group:main.cpp">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:meta"
+         name = "meta">
+         <FileRef
+            location = "group:icon.png">
+         </FileRef>
+         <FileRef
+            location = "group:banner.png">
+         </FileRef>
+         <FileRef
+            location = "group:revtendo-cia.rsf">
+         </FileRef>
+         <FileRef
+            location = "group:audio(NEW).wav">
+         </FileRef>
+         <FileRef
+            location = "group:audio.wav">
+         </FileRef>
+      </Group>
+      <Group
+         location = "group:romfs"
+         name = "romfs">
+         <FileRef
+            location = "group:Makefile">
+         </FileRef>
+         <Group
+            location = "group:sfx"
+            name = "sfx">
+            <FileRef
+               location = "group:BIN_BACK.wav">
+            </FileRef>
+            <FileRef
+               location = "group:LOADING_STARTED.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_OK.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_NEXT.wav">
+            </FileRef>
+            <FileRef
+               location = "group:MES_WARNING.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_NOTAP.wav">
+            </FileRef>
+            <FileRef
+               location = "group:ACC_START.wav">
+            </FileRef>
+            <FileRef
+               location = "group:ACC_HOLD.wav">
+            </FileRef>
+            <FileRef
+               location = "group:LOADING_FIN.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_DROP.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_FALSE.wav">
+            </FileRef>
+            <FileRef
+               location = "group:MES_INFO.wav">
+            </FileRef>
+            <FileRef
+               location = "group:ACC_DROP.wav">
+            </FileRef>
+            <FileRef
+               location = "group:ACC_TAP.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_CILCK.wav">
+            </FileRef>
+            <FileRef
+               location = "group:LOADING_LOOP.wav">
+            </FileRef>
+            <FileRef
+               location = "group:HOME_OPEN.wav">
+            </FileRef>
+            <FileRef
+               location = "group:ACC_SELECT.wav">
+            </FileRef>
+            <FileRef
+               location = "group:BIN_TRUE.wav">
+            </FileRef>
+            <FileRef
+               location = "group:SFX_PUGIN_START.wav">
+            </FileRef>
+         </Group>
+         <FileRef
+            location = "group:Credits.rtf">
+         </FileRef>
+         <Group
+            location = "group:bgm"
+            name = "bgm">
+            <FileRef
+               location = "group:REVNET_MAIN_BGM.wav">
+            </FileRef>
+            <FileRef
+               location = "group:REVNET_SETUP_BGM.wav">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:gfx"
+            name = "gfx">
+            <FileRef
+               location = "group:go_back.png">
+            </FileRef>
+            <FileRef
+               location = "group:bottom.png">
+            </FileRef>
+            <FileRef
+               location = "group:revtendo_loaded_selected.png">
+            </FileRef>
+            <FileRef
+               location = "group:revtendo_unloaded_deselected.png">
+            </FileRef>
+            <FileRef
+               location = "group:top.png">
+            </FileRef>
+            <FileRef
+               location = "group:header.png">
+            </FileRef>
+            <FileRef
+               location = "group:nintendo_loaded_deselected.png">
+            </FileRef>
+            <FileRef
+               location = "group:nintendo_unloaded_selected.png">
+            </FileRef>
+            <FileRef
+               location = "group:select.png">
+            </FileRef>
+            <FileRef
+               location = "group:nintendo_unloaded_deselected.png">
+            </FileRef>
+            <FileRef
+               location = "group:nintendo_loaded_selected.png">
+            </FileRef>
+            <FileRef
+               location = "group:revtendo_unloaded_selected.png">
+            </FileRef>
+            <FileRef
+               location = "group:revtendo_loaded_deselected.png">
+            </FileRef>
+            <FileRef
+               location = "group:sheet.t3s">
+            </FileRef>
+         </Group>
+      </Group>
    </Group>
-   <FileRef
-      location = "group:DECOMPRESSING.md">
-   </FileRef>
-   <FileRef
-      location = "group:LICENSE">
-   </FileRef>
-   <FileRef
-      location = "group:Makefile">
-   </FileRef>
    <Group
       location = "group:patches"
       name = "patches">
@@ -249,214 +440,23 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
+   <FileRef
+      location = "group:Makefile">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:DECOMPRESSING.md">
+   </FileRef>
    <Group
-      location = "group:app"
-      name = "app">
+      location = "group:Audacity files"
+      name = "Audacity files">
       <FileRef
-         location = "group:Makefile">
+         location = "group:BANNER_audio.aup3">
       </FileRef>
-      <Group
-         location = "group:source"
-         name = "source">
-         <FileRef
-            location = "group:common.cpp">
-         </FileRef>
-         <FileRef
-            location = "group:plgldr.h">
-         </FileRef>
-         <FileRef
-            location = "group:csvc.h">
-         </FileRef>
-         <FileRef
-            location = "group:csvc.s">
-         </FileRef>
-         <FileRef
-            location = "group:patchswap.hpp">
-         </FileRef>
-         <FileRef
-            location = "group:plgldr.c">
-         </FileRef>
-         <FileRef
-            location = "group:patchswap.cpp">
-         </FileRef>
-         <Group
-            location = "group:states"
-            name = "states">
-            <FileRef
-               location = "group:LumaValidation.cpp">
-            </FileRef>
-            <FileRef
-               location = "group:MainUI.hpp">
-            </FileRef>
-            <FileRef
-               location = "group:MainUI.cpp">
-            </FileRef>
-            <FileRef
-               location = "group:LumaValidation.hpp">
-            </FileRef>
-         </Group>
-         <Group
-            location = "group:sysmodules"
-            name = "sysmodules">
-            <FileRef
-               location = "group:acta.hpp">
-            </FileRef>
-            <FileRef
-               location = "group:acta.cpp">
-            </FileRef>
-         </Group>
-         <FileRef
-            location = "group:common.hpp">
-         </FileRef>
-         <FileRef
-            location = "group:main.cpp">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:meta"
-         name = "meta">
-         <FileRef
-            location = "group:icon.png">
-         </FileRef>
-         <FileRef
-            location = "group:banner.png">
-         </FileRef>
-         <FileRef
-            location = "group:revtendo-cia.rsf">
-         </FileRef>
-         <FileRef
-            location = "group:audio(NEW).wav">
-         </FileRef>
-         <FileRef
-            location = "group:audio.wav">
-         </FileRef>
-      </Group>
-      <Group
-         location = "group:romfs"
-         name = "romfs">
-         <Group
-            location = "group:sfx"
-            name = "sfx">
-            <FileRef
-               location = "group:BIN_BACK.wav">
-            </FileRef>
-            <FileRef
-               location = "group:LOADING_STARTED.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_OK.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_NEXT.wav">
-            </FileRef>
-            <FileRef
-               location = "group:MES_WARNING.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_NOTAP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_START.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_HOLD.wav">
-            </FileRef>
-            <FileRef
-               location = "group:LOADING_FIN.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_DROP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_FALSE.wav">
-            </FileRef>
-            <FileRef
-               location = "group:MES_INFO.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_DROP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_TAP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_CILCK.wav">
-            </FileRef>
-            <FileRef
-               location = "group:LOADING_LOOP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:HOME_OPEN.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_SELECT.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_TRUE.wav">
-            </FileRef>
-            <FileRef
-               location = "group:SFX_PUGIN_START.wav">
-            </FileRef>
-         </Group>
-         <FileRef
-            location = "group:Credits.rtf">
-         </FileRef>
-         <Group
-            location = "group:bgm"
-            name = "bgm">
-            <FileRef
-               location = "group:REVNET_MAIN_BGM.wav">
-            </FileRef>
-            <FileRef
-               location = "group:REVNET_SETUP_BGM.wav">
-            </FileRef>
-         </Group>
-         <Group
-            location = "group:gfx"
-            name = "gfx">
-            <FileRef
-               location = "group:go_back.png">
-            </FileRef>
-            <FileRef
-               location = "group:brewtendo_loaded_selected.png">
-            </FileRef>
-            <FileRef
-               location = "group:brewtendo_unloaded_selected.png">
-            </FileRef>
-            <FileRef
-               location = "group:bottom.png">
-            </FileRef>
-            <FileRef
-               location = "group:brewtendo_loaded_deselected.png">
-            </FileRef>
-            <FileRef
-               location = "group:top.png">
-            </FileRef>
-            <FileRef
-               location = "group:header.png">
-            </FileRef>
-            <FileRef
-               location = "group:nintendo_loaded_deselected.png">
-            </FileRef>
-            <FileRef
-               location = "group:nintendo_unloaded_selected.png">
-            </FileRef>
-            <FileRef
-               location = "group:brewtendo_unloaded_deselected.png">
-            </FileRef>
-            <FileRef
-               location = "group:select.png">
-            </FileRef>
-            <FileRef
-               location = "group:nintendo_unloaded_deselected.png">
-            </FileRef>
-            <FileRef
-               location = "group:nintendo_loaded_selected.png">
-            </FileRef>
-            <FileRef
-               location = "group:sheet.t3s">
-            </FileRef>
-         </Group>
-      </Group>
+      <FileRef
+         location = "group:REVNET_BGM.aup3">
+      </FileRef>
    </Group>
 </Workspace>
