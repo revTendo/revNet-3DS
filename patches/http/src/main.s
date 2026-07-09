@@ -143,8 +143,4 @@ replace_function_addr equ 0x11AA70
 	replacementrevTendo:
 		.asciiz "revtendo.com"
 
-	replacementrevTendo:
-		.asciiz "revtendo.com"
-
-
 .close
