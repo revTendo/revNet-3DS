@@ -34,7 +34,7 @@ include $(DEVKITARM)/3ds_rules
 APP_TITLE       := 	revNet
 APP_DESCRIPTION := 	revNet
 APP_AUTHOR	:=	By vugbdok8307 and pinecone__2209
-TARGET		:=	axiom
+TARGET		:=	revtendo
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules
 DATA		:=	data
@@ -47,7 +47,7 @@ RSF_FILE := meta/revnet-cia.rsf
 
 ICON      := meta/icon.png
 BNR_IMAGE := meta/banner.png
-BNR_AUDIO := meta/audio(NEW).wav
+BNR_AUDIO := meta/audio.wav
 
 VERSION_HEADER = version.hpp
 
