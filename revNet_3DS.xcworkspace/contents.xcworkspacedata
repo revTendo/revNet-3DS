@@ -74,7 +74,7 @@
             location = "group:banner.png">
          </FileRef>
          <FileRef
-            location = "group:revtendo-cia.rsf">
+            location = "group:revnet-cia.rsf">
          </FileRef>
          <FileRef
             location = "group:audio(NEW).wav">
@@ -423,7 +423,7 @@
          </FileRef>
       </Group>
       <FileRef
-         location = "group:revtendo.plgInfo">
+         location = "group:revnet.plgInfo">
       </FileRef>
       <Group
          location = "group:Sources"
