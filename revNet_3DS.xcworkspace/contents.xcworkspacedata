@@ -371,9 +371,6 @@
       location = "group:plugin"
       name = "plugin">
       <FileRef
-         location = "group:nimbus.plgInfo">
-      </FileRef>
-      <FileRef
          location = "group:Makefile">
       </FileRef>
       <Group
@@ -426,7 +423,7 @@
          </FileRef>
       </Group>
       <FileRef
-         location = "group:axiom.plgInfo">
+         location = "group:revtendo.plgInfo">
       </FileRef>
       <Group
          location = "group:Sources"
