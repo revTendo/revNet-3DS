@@ -4,6 +4,9 @@
    <Group
       location = "group:app"
       name = "app">
+      <FileRef
+         location = "group:Makefile">
+      </FileRef>
       <Group
          location = "group:source"
          name = "source">
@@ -191,9 +194,6 @@
                location = "group:nintendo_unloaded_selected.png">
             </FileRef>
             <FileRef
-               location = "group:select.png">
-            </FileRef>
-            <FileRef
                location = "group:nintendo_unloaded_deselected.png">
             </FileRef>
             <FileRef
@@ -212,11 +212,46 @@
       </Group>
    </Group>
    <Group
+      location = "group:Audacity files"
+      name = "Audacity files">
+      <FileRef
+         location = "group:BANNER_audio.aup3">
+      </FileRef>
+      <FileRef
+         location = "group:REVNET_BGM.aup3">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:DECOMPRESSING.md">
+   </FileRef>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:Makefile">
+   </FileRef>
+   <Group
       location = "group:patches"
       name = "patches">
       <Group
          location = "group:ssl"
          name = "ssl">
+         <FileRef
+            location = "group:LICENSE">
+         </FileRef>
+         <FileRef
+            location = "group:Makefile">
+         </FileRef>
+         <FileRef
+            location = "group:README.md">
+         </FileRef>
+         <Group
+            location = "group:src"
+            name = "src">
+            <FileRef
+               location = "group:main.s">
+            </FileRef>
+         </Group>
       </Group>
       <FileRef
          location = "group:Makefile">
@@ -440,23 +475,4 @@
    <FileRef
       location = "group:README.md">
    </FileRef>
-   <FileRef
-      location = "group:Makefile">
-   </FileRef>
-   <FileRef
-      location = "group:LICENSE">
-   </FileRef>
-   <FileRef
-      location = "group:DECOMPRESSING.md">
-   </FileRef>
-   <Group
-      location = "group:Audacity files"
-      name = "Audacity files">
-      <FileRef
-         location = "group:BANNER_audio.aup3">
-      </FileRef>
-      <FileRef
-         location = "group:REVNET_BGM.aup3">
-      </FileRef>
-   </Group>
 </Workspace>

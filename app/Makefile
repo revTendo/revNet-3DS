@@ -31,9 +31,9 @@ include $(DEVKITARM)/3ds_rules
 #     - icon.png
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
-APP_TITLE       := 	Axiom
-APP_DESCRIPTION := 	Axiom
-APP_AUTHOR	:=	By thom5582 and andrea__2209
+APP_TITLE       := 	revNet
+APP_DESCRIPTION := 	revNet
+APP_AUTHOR	:=	By vugbdok8307 and pinecone__2209
 TARGET		:=	axiom
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules
@@ -43,18 +43,17 @@ ROMFS		:=	romfs
 GRAPHICS	:=	$(ROMFS)/gfx
 GFXBUILD 	:=  $(BUILD)
 
-RSF_FILE := meta/axiom-cia.rsf
+RSF_FILE := meta/revnet-cia.rsf
 
 ICON      := meta/icon.png
 BNR_IMAGE := meta/banner.png
-BNR_AUDIO := meta/audio.wav
-LOGO 	  := meta/logoTEST.bin
+BNR_AUDIO := meta/audio(NEW).wav
 
 VERSION_HEADER = version.hpp
 
 VERSION_MAJOR := 0
-VERSION_MINOR := 9
-VERSION_MICRO := 9
+VERSION_MINOR := 0
+VERSION_MICRO := 0
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
