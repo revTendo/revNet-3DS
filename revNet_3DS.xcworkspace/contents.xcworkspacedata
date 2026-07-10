@@ -68,10 +68,10 @@
             location = "group:banner.png">
          </FileRef>
          <FileRef
-            location = "group:revnet-cia.rsf">
+            location = "group:audio(NEW).wav">
          </FileRef>
          <FileRef
-            location = "group:audio(NEW).wav">
+            location = "group:revnet-cia.rsf">
          </FileRef>
          <FileRef
             location = "group:audio.wav">
@@ -80,17 +80,11 @@
       <Group
          location = "group:romfs"
          name = "romfs">
-         <FileRef
-            location = "group:Makefile">
-         </FileRef>
          <Group
             location = "group:sfx"
             name = "sfx">
             <FileRef
                location = "group:BIN_BACK.wav">
-            </FileRef>
-            <FileRef
-               location = "group:LOADING_STARTED.wav">
             </FileRef>
             <FileRef
                location = "group:BIN_OK.wav">
@@ -108,22 +102,7 @@
                location = "group:ACC_START.wav">
             </FileRef>
             <FileRef
-               location = "group:ACC_HOLD.wav">
-            </FileRef>
-            <FileRef
-               location = "group:LOADING_FIN.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_DROP.wav">
-            </FileRef>
-            <FileRef
-               location = "group:BIN_FALSE.wav">
-            </FileRef>
-            <FileRef
                location = "group:MES_INFO.wav">
-            </FileRef>
-            <FileRef
-               location = "group:ACC_DROP.wav">
             </FileRef>
             <FileRef
                location = "group:ACC_TAP.wav">
@@ -141,23 +120,14 @@
                location = "group:ACC_SELECT.wav">
             </FileRef>
             <FileRef
-               location = "group:BIN_TRUE.wav">
-            </FileRef>
-            <FileRef
                location = "group:SFX_PUGIN_START.wav">
             </FileRef>
          </Group>
-         <FileRef
-            location = "group:Credits.rtf">
-         </FileRef>
          <Group
             location = "group:bgm"
             name = "bgm">
             <FileRef
                location = "group:REVNET_MAIN_BGM.wav">
-            </FileRef>
-            <FileRef
-               location = "group:REVNET_SETUP_BGM.wav">
             </FileRef>
          </Group>
          <Group
@@ -203,6 +173,9 @@
                location = "group:sheet.t3s">
             </FileRef>
          </Group>
+         <FileRef
+            location = "group:Credits.rtfd">
+         </FileRef>
       </Group>
    </Group>
    <Group
@@ -214,6 +187,12 @@
       <FileRef
          location = "group:REVNET_BGM.aup3">
       </FileRef>
+      <FileRef
+         location = "group:REVNET_SFX.aup3">
+      </FileRef>
+      <FileRef
+         location = "group:REVNET_SETUP_BGM.wav">
+      </FileRef>
    </Group>
    <FileRef
       location = "group:DECOMPRESSING.md">
@@ -224,6 +203,21 @@
    <FileRef
       location = "group:Makefile">
    </FileRef>
+   <Group
+      location = "group:out"
+      name = "out">
+      <Group
+         location = "group:cia_out"
+         name = "cia_out">
+         <Group
+            location = "group:cias"
+            name = "cias">
+            <FileRef
+               location = "group:AXE_3DS.cia">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
    <Group
       location = "group:patches"
       name = "patches">
@@ -416,9 +410,6 @@
             location = "group:HTTPSessionManager.hpp">
          </FileRef>
       </Group>
-      <FileRef
-         location = "group:revnet.plgInfo">
-      </FileRef>
       <Group
          location = "group:Sources"
          name = "Sources">
@@ -461,6 +452,9 @@
       </Group>
       <FileRef
          location = "group:3gx.ld">
+      </FileRef>
+      <FileRef
+         location = "group:revnet.plgInfo">
       </FileRef>
    </Group>
    <FileRef
