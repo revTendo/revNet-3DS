@@ -32,9 +32,9 @@ include $(DEVKITARM)/3ds_rules
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
 APP_TITLE       := 	revNet
-APP_DESCRIPTION := 	revNet
+APP_DESCRIPTION := 	Project AXE
 APP_AUTHOR	:=	By vugbdok8307 and pinecone__2209
-TARGET		:=	revtendo_3ds
+TARGET		:=	AXE_3DS
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules
 DATA		:=	data
@@ -53,7 +53,7 @@ VERSION_HEADER = version.hpp
 
 VERSION_MAJOR := 0
 VERSION_MINOR := 2
-VERSION_MICRO := 0
+VERSION_MICRO := 1
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
