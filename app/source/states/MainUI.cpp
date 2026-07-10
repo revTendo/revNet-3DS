@@ -408,9 +408,9 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                 else {
                     LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
                     loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
-                }
             }
         }
+        
  
         if (kDown & KEY_Y) {
             launchPlugin(mainStruct);
