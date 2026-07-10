@@ -49,7 +49,7 @@ void DrawString(float size, u32 color, std::string text, int flags) {
 
 void DrawControls() {
     C2D_Text c2d_text;
-    const char* text = "A: Select\nL: Switch to Pretendo\nY: Launch plugin\nX: Unlink revID";
+    const char* text = "A: Select\nX: Unlink revID\nY: Launch plugin";
     float size = 0.5f;
     int offset = 6;
     int bottomOffset = 240 - offset - (int)GetStringHeight(size, text);
@@ -69,7 +69,7 @@ CFG_Region GetSystemRegion() {
 
 void DrawVersionString() {
     C2D_Text c2d_text;
-    std::string text = std::format("{} {}.{}.{}U", APP_TITLE, VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
+    std::string text = std::format("{}.{}.{}U", VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
     float size = 0.5f;
     int offset = 6;
     int bottomOffset = (240 + 2)- offset; // 3ds vertical resolution - offset, but add 2 to the vertical resolution to account for the vertical padding?

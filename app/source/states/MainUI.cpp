@@ -396,7 +396,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
  
     C2D_SceneBegin(bottom_screen);
     C2D_DrawSprite(&mainStruct->bottom);
-    if (!mainStruct->prompt.active) DrawControls();
+    if (!mainStruct->prompt.active) DrawControls(); DrawVersionString(); //TEMPPPP
  
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
@@ -438,7 +438,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                 mainStruct->buttonWasPressed = true;
                 loadAndPlaySFX("romfs:/sfx/ACC_TAP.wav");
             }
-        } else if (kDown & KEY_LEFT || kDown & KEY_RIGHT) {
+        } else if (kDown & KEY_UP || kDown & KEY_DOWN) {
             mainStruct->buttonSelected =
                 mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Dev
                     ? NascEnvironment::NASC_ENV_Prod
@@ -451,31 +451,6 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
         if (kDown & KEY_A) {
             loadAndPlaySFX("romfs:/sfx/ACC_START.wav");
             mainStruct->buttonWasPressed = true;
-        }
- 
-        if (kDown & KEY_L) {
-            loadAndPlaySFX("romfs:/sfx/ACC_TAP.wav");
- 
-            u64 freeBytes = GetSDFreeBytes();
-            mainStruct->sdFreeBytes = freeBytes;
- 
-            if (freeBytes < MIN_FREE_SPACE_BYTES) {
-                openPrompt(mainStruct,
-                    std::format(
-                        "Warning: only {} MB free on SD.\n"
-                        "This may not be enough to switch safely.\n\n"
-                        "A: Risk it    B: Cancel (free up space first)",
-                        freeBytes / (1024 * 1024)),
-                    PromptStatus::PretendoSwitchLowSD);
-            } else {
-                openPrompt(mainStruct,
-                    "Switch to Pretendo?\n\n"
-                    "This will download and install Pretendo patches,\n"
-                    "switch your account, and reboot.\n\n"
-                    "A: Switch    B: Cancel",
-                    PromptStatus::PretendoSwitch);
-            }
-            return false;
         }
  
         if (kDown & KEY_X) {
