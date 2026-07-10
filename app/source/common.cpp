@@ -76,7 +76,7 @@ void DrawVersionString() {
 
     C2D_TextBufClear(textBuf);
     
-    C2D_TextFontParse(&c2d_text, font, textBuf, text.c_str();
+    C2D_TextFontParse(&c2d_text, font, textBuf, text.c_str());
     C2D_TextOptimize(&c2d_text);
     C2D_DrawText(&c2d_text, C2D_WithColor | C2D_AlignLeft, offset, bottomOffset, 0.5f, size, size, C2D_Color32(0, 0, 0, 255));
 }
