@@ -362,12 +362,12 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
     if (!mainStruct->needsReboot && !mainStruct->prompt.active) {
         if (kDown & KEY_TOUCH) {
             if ((touch.px >= 27 && touch.px <= 292) && (touch.py >= 127 && touch.py <= 177)) {
+                loadAndPlaySFX("romfs:/sfx/ACC_START.wav");
                 mainStruct->buttonSelected  = NascEnvironment::NASC_ENV_Prod;
-                loadAndPlaySFX("romfs:/sfx/ACC_TAP.wav");
                 mainStruct->buttonWasPressed = true;
             } else if ((touch.px >= 27 && touch.px <= 292) && (touch.py >= 52 && touch.py <= 102)) {
+                loadAndPlaySFX("romfs:/sfx/ACC_START.wav");
                 mainStruct->buttonSelected  = NascEnvironment::NASC_ENV_Dev;
-                loadAndPlaySFX("romfs:/sfx/ACC_TAP.wav");
                 mainStruct->buttonWasPressed = true;
             }
         } else if (kDown & KEY_UP || kDown & KEY_DOWN) {

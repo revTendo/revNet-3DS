@@ -154,6 +154,8 @@ int main()
 		if (exit) break;
 	}
     
+    svcSleepThread(50000000);
+    
     while (ndspChnIsPlaying(1)) {
             svcSleepThread(1000000); // Sleep thread for 1 millisecond to prevent CPU locking
         }
