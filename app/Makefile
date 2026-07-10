@@ -34,7 +34,7 @@ include $(DEVKITARM)/3ds_rules
 APP_TITLE       := 	revNet
 APP_DESCRIPTION := 	revNet
 APP_AUTHOR	:=	By vugbdok8307 and pinecone__2209
-TARGET		:=	revtendo
+TARGET		:=	revtendo_3ds
 BUILD		:=	build
 SOURCES		:=	source source/states source/sysmodules
 DATA		:=	data
@@ -52,8 +52,8 @@ BNR_AUDIO := meta/audio.wav
 VERSION_HEADER = version.hpp
 
 VERSION_MAJOR := 0
-VERSION_MINOR := 1
-VERSION_MICRO := 5
+VERSION_MINOR := 2
+VERSION_MICRO := 0
 
 #GFXBUILD	:=	$(ROMFS)/gfx
 
