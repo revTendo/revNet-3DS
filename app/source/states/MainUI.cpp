@@ -7,7 +7,7 @@
 #include "../patchswap.hpp"
 
 const char *REVNET_PLUGIN       = "/luma/plugins/revnet.3gx";
-const char *REVNET_PLUGIN_MAGIC = "AXOM";
+const char *REVNET_PLUGIN_MAGIC = "RENT";
 constexpr u32 REVNET_PLUGIN_VERSION = SYSTEM_VERSION(1, 0, 0);
 
 Result retrevID      = 0;
@@ -213,9 +213,9 @@ void MainUI::drawPrompt(MainStruct* mainStruct) {
     const float boxX = (screenW - boxW) / 2.0f;
     const float boxY = (screenH - boxH) / 2.0f;
 
-    const u32 fill   = C2D_Color32(0x75, 0x6C, 0x48, 0xFF);
+    const u32 fill   = C2D_Color32(0xFE, 0xFE, 0xFE, 0xFF);
     const u32 border = C2D_Color32(108, 98, 64, 255);
-    const u32 white  = C2D_Color32(255, 255, 255, 255);
+    const u32 white  = C2D_Color32(0x33, 0x33, 0x33, 0xFF);
 
     C2D_DrawRectSolid(boxX, boxY,               0.2f, boxW, boxH, fill);
     C2D_DrawRectSolid(boxX, boxY,               0.3f, boxW, 2,    border);

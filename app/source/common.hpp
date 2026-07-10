@@ -145,8 +145,8 @@ struct MainStruct {
 
 const int  targetLumaVersion = 13;
 const int  GetSystemInfoCFW  = 0x10000;
-const u32  defaultColor      = C2D_Color32(108, 98, 64, 255);
-const u32  infoColor         = C2D_Color32(45, 45, 44, 255);
+const u32  defaultColor      = C2D_Color32(0x33, 0x33, 0x33, 255);
+const u32  infoColor         = C2D_Color32(0x33, 0x33, 0x33, 255);
 
 #define LOG_REVNET_ERROR(mainStruct, fmt) \
     if (mainStruct->errorString[0] == 0) {                                       \

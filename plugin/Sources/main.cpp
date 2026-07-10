@@ -13,7 +13,7 @@
 #include <vector>
 #include <string.h>
 
-const char *REVNET_PLUGIN_MAGIC = "AXOM";
+const char *REVNET_PLUGIN_MAGIC = "RENT";
 constexpr u32 REVNET_PLUGIN_VERSION = SYSTEM_VERSION(1, 0, 0);
 
 namespace CTRPluginFramework
