@@ -302,12 +302,6 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                 case PromptStatus::revIDUnlink:
                     unlinkrevID(mainStruct);
                     break;
-                case PromptStatus::PretendoSwitch:
-                    doSwitchToPretendo(mainStruct);
-                    break;
-                case PromptStatus::PretendoSwitchLowSD:
-                    doSwitchToPretendo(mainStruct);
-                    break;
                 default:
                     LOG_REVNET_ERROR(mainStruct, "Unknown prompt called.");
                     break;

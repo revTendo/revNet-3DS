@@ -68,11 +68,7 @@ enum class PromptResult {
 
 enum class PromptStatus {
     Unknown,
-    revIDUnlink,
-    PretendoSwitch,       
-    PretendoSwitchLowSD,  
-    PretendoIntercept,    
-    revTendoCDNFail,    
+    revIDUnlink,  
 };
 
 enum class SwapPhase {
