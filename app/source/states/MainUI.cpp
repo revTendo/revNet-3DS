@@ -396,7 +396,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
  
     C2D_SceneBegin(bottom_screen);
     C2D_DrawSprite(&mainStruct->bottom);
-    if (!mainStruct->prompt.active) DrawControls(); DrawVersionString(); //TEMPPPP
+    if (!mainStruct->prompt.active) DrawControls();
  
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
