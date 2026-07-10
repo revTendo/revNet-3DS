@@ -4,7 +4,6 @@
 #include "MainUI.hpp"
 #include "../sysmodules/acta.hpp"
 #include "../plgldr.h"
-#include "../patchswap.hpp"
 
 const char *REVNET_PLUGIN       = "/luma/plugins/revnet.3gx";
 const char *REVNET_PLUGIN_MAGIC = "RENT";
