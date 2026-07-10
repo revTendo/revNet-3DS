@@ -234,67 +234,6 @@ void MainUI::drawPrompt(MainStruct* mainStruct) {
     C2D_DrawText(&hintText, C2D_WithColor | C2D_AlignCenter, screenW / 2.0f, boxY + boxH - 18.0f, 0.4f, 0.5f,  0.5f,  white);
 }
 
-static void doSwitchToPretendo(MainStruct* mainStruct) {
-    mainStruct->swapPhase     = SwapPhase::Idle;
-    mainStruct->swapStatusMsg = "";
-
-    bool spaceOK = PatchSwap::CheckFreeSpace(mainStruct);
-    if (!spaceOK) {
-        mainStruct->swapStatusMsg = std::format(
-            "Low space ({} MB) — proceeding with caution...",
-            mainStruct->sdFreeBytes / (1024 * 1024));
-    }
-
-    PatchSwap::Manifest* manifest = new PatchSwap::Manifest();
-    memset(manifest, 0, sizeof(PatchSwap::Manifest));
-    bool ok = PatchSwap::SwitchToPretendo(mainStruct, manifest);
-    delete manifest;
-
-    if (!ok) {
-        if (mainStruct->errorString[0] == 0 && !mainStruct->swapStatusMsg.empty())
-            snprintf(mainStruct->errorString, sizeof(mainStruct->errorString),
-                "%s\n\nPress START to reboot.", mainStruct->swapStatusMsg.c_str());
-        else if (mainStruct->errorString[0] != 0) {
-            std::string es(mainStruct->errorString);
-            if (es.find("Press START") == std::string::npos)
-                snprintf(mainStruct->errorString, sizeof(mainStruct->errorString),
-                    "%s\n\nPress START to reboot.", es.c_str());
-        }
-        aptSetHomeAllowed(false);
-        mainStruct->needsReboot = true;
-        return;
-    }
-
-    Result rc = MainUI::unloadAccount(mainStruct);
-    if (R_SUCCEEDED(rc)) {
-        rc = MainUI::switchAccounts(mainStruct, 2);
-        if (R_FAILED(rc)) {
-            memset(mainStruct->errorString, 0, 256);
-            rc = MainUI::createAccount(mainStruct, 2, NascEnvironment::NASC_ENV_Test);
-        }
-    }
-
-    if (R_FAILED(rc)) {
-        PatchSwap::WriteHandoff();
-        LOGF_REVNET_ERROR(mainStruct,
-            "Pretendo patches installed but account switch failed: %08lx\n"
-            "Open Nimbus to finish account setup.\n\nPress start to reboot.", rc);
-        aptSetHomeAllowed(false);
-        mainStruct->needsReboot = true;
-        return;
-    }
-
-    PatchSwap::WriteHandoff();
-    mainStruct->swapPhase = SwapPhase::Done;
-    loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
-
-    LOGF_REVNET_ERROR(mainStruct,
-        "Switched to Pretendo! Source: %s\nRelease: %s  Commit: %.8s\n\nPress start to reboot.",
-        manifest->source, manifest->release, manifest->commit);
-    aptSetHomeAllowed(false);
-    mainStruct->needsReboot = true;
-}
-
 bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                     C3D_RenderTarget* bottom_screen, u32 kDown, u32 kHeld, touchPosition touch)
 {

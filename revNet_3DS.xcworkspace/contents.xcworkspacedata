@@ -23,13 +23,7 @@
             location = "group:csvc.s">
          </FileRef>
          <FileRef
-            location = "group:patchswap.hpp">
-         </FileRef>
-         <FileRef
             location = "group:plgldr.c">
-         </FileRef>
-         <FileRef
-            location = "group:patchswap.cpp">
          </FileRef>
          <Group
             location = "group:states"

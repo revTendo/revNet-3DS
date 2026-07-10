@@ -186,11 +186,6 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
 
     C2D_SceneBegin(bottom_screen);
 
-    if (!mainStruct->musicStarted) {
-        PlayBGM("romfs:/bgm/REVNET_SETUP_BGM.wav");
-        mainStruct->musicStarted = true;
-    }
-
     s64 isCitra = 0;
     svcGetSystemInfo(&isCitra, 0x20000, 0);
     if (isCitra) {
@@ -242,7 +237,12 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
         MainUI::drawPrompt(mainStruct);
         return false;
     }
-
+    
+    if (!mainStruct->musicStarted) {
+        PlayBGM("romfs:/bgm/REVNET_SETUP_BGM.wav");
+        mainStruct->musicStarted = true;
+    }
+    
     if (mainStruct->needsReboot) {
         if (mainStruct->errorString[0] != 0) {
             DrawString(0.5f, 0xFF000000, mainStruct->errorString, 0);
@@ -251,29 +251,6 @@ bool LumaValidation::checkIfLumaOptionsEnabled(
         }
         if (kDown & KEY_START) return true;
         return false;
-    }
-
-    if (!mainStruct->pretendoInterceptChecked) {
-        mainStruct->pretendoInterceptChecked = true;
-        if (PatchSwap::HandoffExists()) {
-            mainStruct->pretendoInterceptActive = true;
-            PlaySFX("romfs:/sfx/MES_INFO.wav");
-            MainUI::openPrompt(mainStruct,
-                "Pretendo patches are currently active.\n\n"
-                "A: Switch back to revTendo\n"
-                "B: Exit revNet (open Nimbus yourself)",
-                PromptStatus::PretendoIntercept);
-            MainUI::drawPrompt(mainStruct);
-            return false;
-        }
-    }
-
-    if (mainStruct->pretendoInterceptActive && !mainStruct->prompt.active) {
-        MainUI::openPrompt(mainStruct,
-            "Pretendo patches are currently active.\n\n"
-            "A: Switch back to revTendo\n"
-            "B: Exit revNet (open Nimbus yourself)",
-            PromptStatus::PretendoIntercept);
     }
 
     if (mainStruct->pretendoInterceptActive) {
