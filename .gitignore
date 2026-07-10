@@ -29,20 +29,15 @@
 
 # Executables
 *.exe
-*.out
 *.app
 
 # 3ds
 *.elf
-*.cia
-*.3dsx
 *.smdh
 *.t3x
 *.bin
-*.ips
 *.3gx
 [Bb]uild
-out
 luma
 target
 
@@ -56,4 +51,3 @@ target
 *.DS_Store
 patches/ssl
 *.sb3
-Audacity files/AXIOM_SPECIAL_BGM.aup3

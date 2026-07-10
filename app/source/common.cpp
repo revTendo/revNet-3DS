@@ -69,16 +69,17 @@ CFG_Region GetSystemRegion() {
 
 void DrawVersionString() {
     C2D_Text c2d_text;
-    std::string text = std::format("{} {}.{}.{}", APP_TITLE, VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
+    std::string text = std::format("{} {}.{}.{}U", APP_TITLE, VERSION_MAJOR, VERSION_MINOR, VERSION_MICRO);
     float size = 0.5f;
     int offset = 6;
-    int bottomOffset     = 240 - offset;
-    int horizontalOffset = 320 - offset;
+    int bottomOffset = (240 + 2)- offset; // 3ds vertical resolution - offset, but add 2 to the vertical resolution to account for the vertical padding?
+    int horizontalOffset = 400 - offset;
 
     C2D_TextBufClear(textBuf);
-    C2D_TextFontParse(&c2d_text, font, textBuf, text.c_str());
+    
+    C2D_TextFontParse(&c2d_text, font, textBuf, text);
     C2D_TextOptimize(&c2d_text);
-    C2D_DrawText(&c2d_text, C2D_WithColor | C2D_AlignRight, horizontalOffset, bottomOffset - GetStringHeight(size, text.c_str()), 0.5f, size, size, C2D_Color32(0, 0, 0, 255));
+    C2D_DrawText(&c2d_text, C2D_WithColor | C2D_AlignLeft, offset, bottomOffset, 0.5f, size, size, C2D_Color32(0, 0, 0, 255));
 }
 
 bool GetLumaOptionByIndex(LumaConfigBitIndex index, s64 options) {
