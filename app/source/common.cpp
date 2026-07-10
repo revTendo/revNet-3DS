@@ -73,7 +73,6 @@ void DrawVersionString() {
     float size = 0.5f;
     int offset = 6;
     int bottomOffset = (240 + 2)- offset; // 3ds vertical resolution - offset, but add 2 to the vertical resolution to account for the vertical padding?
-    int horizontalOffset = 400 - offset;
 
     C2D_TextBufClear(textBuf);
     
