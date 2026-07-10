@@ -386,29 +386,26 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
         }
  
         if (kDown & KEY_X) {
-            if (R_SUCCEEDED(retrevID)) {
-                if (R_FAILED(retrevID = ACT_GetAccountIndexOfFriendAccountId(&revidAccountSlot, 3)))
-                    LOG_REVNET_ERROR(mainStruct,
-                        std::format("ACT_GetAccountIndexOfFriendAccountId failed: {}!", retrevID).c_str());
-            }
-            if (revidAccountSlot == 0) {
-                LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
-                loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
-            }
-            if (R_SUCCEEDED(retrevID)) {
-                if (R_FAILED(retrevID = ACT_GetAccountInfo(revid, sizeof(revid), revidAccountSlot, INFO_TYPE_ACCOUNT_ID))) {
-                    LOG_REVNET_ERROR(mainStruct,
-                        std::format("ACT_GetAccountInfo failed: {}!", retrevID).c_str());
+            retrevID = 0;
+            if (R_FAILED(retrevID = ACT_GetAccountIndexOfFriendAccountId(&revidAccountSlot, 3))) {
+                    LOG_REVNET_ERROR(mainStruct, std::format("ACT_GetAccountIndexOfFriendAccountId failed: {}!", retrevID).c_str());
                     loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
                 }
-            }
-            if (R_SUCCEEDED(retrevID)) {
-                if (revid[0] != '\0') {
+                else if (revidAccountSlot == 0) {
+                    LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
+                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                }
+                else if (R_FAILED(retrevID = ACT_GetAccountInfo(revid, sizeof(revid), revidAccountSlot, INFO_TYPE_ACCOUNT_ID))) {
+                    LOG_REVNET_ERROR(mainStruct, std::format("ACT_GetAccountInfo failed: {}!", retrevID).c_str());
+                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                }
+                else if (revid[0] != '\0') {
                     openPrompt(mainStruct,
-                        std::format("Are you sure you would like to unlink your revID {}? "
+                           std::format("Are you sure you would like to unlink your revID {}? "
                                     "Your revID can be relinked at any time.", revid),
-                        PromptStatus::revIDUnlink);
-                } else {
+                           PromptStatus::revIDUnlink);
+                }
+                else {
                     LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
                     loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
                 }
