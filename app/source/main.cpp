@@ -68,14 +68,14 @@ static void sceneInit(void)
     C2D_SpriteSetPos(&mainStruct.go_back, 0, 214);
     C2D_SpriteSetCenter(&mainStruct.header, 0.5f, 0.0f);
     C2D_SpriteSetPos(&mainStruct.header, 160, 0);
-    C2D_SpriteSetPos(&mainStruct.revtendo_loaded_selected, 49, 59);
-    C2D_SpriteSetPos(&mainStruct.revtendo_unloaded_selected, 49, 59);
-    C2D_SpriteSetPos(&mainStruct.revtendo_unloaded_deselected, 49, 59);
-    C2D_SpriteSetPos(&mainStruct.revtendo_loaded_deselected, 49, 59);
-    C2D_SpriteSetPos(&mainStruct.nintendo_loaded_selected, 165, 59);
-    C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_selected, 165, 59);
-    C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_deselected, 165, 59);
-    C2D_SpriteSetPos(&mainStruct.nintendo_loaded_deselected, 165, 59);
+    C2D_SpriteSetPos(&mainStruct.revtendo_loaded_selected, 62, 27);
+    C2D_SpriteSetPos(&mainStruct.revtendo_unloaded_selected, 62, 27);
+    C2D_SpriteSetPos(&mainStruct.revtendo_unloaded_deselected, 62, 27);
+    C2D_SpriteSetPos(&mainStruct.revtendo_loaded_deselected, 62, 27);
+    C2D_SpriteSetPos(&mainStruct.nintendo_loaded_selected, 127, 27);
+    C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_selected, 127, 27);
+    C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_deselected, 127, 27);
+    C2D_SpriteSetPos(&mainStruct.nintendo_loaded_deselected, 127, 27);
     C2D_SpriteSetCenter(&mainStruct.bottom, 0.5f, 0.5f);
     C2D_SpriteSetPos(&mainStruct.bottom, 160, 120);
     
