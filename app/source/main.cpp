@@ -134,7 +134,7 @@ int main()
 		// Render the scene
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 		
-        C2D_TargetClear(top_screen, C2D_Color32(0xB6, 0xB4, 0xC2, 0xFF)); B6B4C2
+        C2D_TargetClear(top_screen, C2D_Color32(0xB6, 0xB4, 0xC2, 0xFF));
         C2D_TargetClear(bottom_screen, C2D_Color32(0xFE, 0xFE, 0xFE, 0xFF));
 		
 		// TODO: change firstRunOfState into stateRunIndex, incrementing every time the state is run
