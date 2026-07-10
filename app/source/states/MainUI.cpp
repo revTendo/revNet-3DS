@@ -171,6 +171,7 @@ void MainUI::launchPlugin(MainStruct *mainStruct) {
 
     if (version < SYSTEM_VERSION(1, 0, 2)) {
         LOG_REVNET_ERROR(mainStruct, "Unsupported plg:ldr version, please update Luma3DS");
+        loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
         plgLdrExit();
         return;
     }
