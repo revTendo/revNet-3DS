@@ -18,5 +18,4 @@
 | Games | Unavailable |
 | Theme Shop | Unavailable |
 
-# NO ETA! 
-Yet...
+# ETA: Sometime next week
