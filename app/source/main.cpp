@@ -50,8 +50,8 @@ void SFX(const char* path) {
 static void sceneInit(void)
 {
 	C2D_SpriteSheet spriteSheet = C2D_SpriteSheetLoadFromMem(sheet_t3x, sheet_t3x_size);
-	C2D_SpriteFromSheet(&mainStruct.top, spriteSheet, sheet_top_idx);
-    C2D_SpriteFromSheet(&mainStruct.bottom, spriteSheet, sheet_bottom_idx);
+	C2D_SpriteFromSheet(&mainStruct.revNetTop_Info, spriteSheet, sheet_revNetTop_Info_idx);
+    C2D_SpriteFromSheet(&mainStruct.revNetBottom_Main, spriteSheet, sheet_revNetBottom_Main_idx);
 	C2D_SpriteFromSheet(&mainStruct.go_back, spriteSheet, sheet_go_back_idx);
 	C2D_SpriteFromSheet(&mainStruct.header, spriteSheet, sheet_header_idx);
 	C2D_SpriteFromSheet(&mainStruct.nintendo_unloaded_deselected, spriteSheet, sheet_nintendo_unloaded_deselected_idx);
@@ -63,8 +63,8 @@ static void sceneInit(void)
 	C2D_SpriteFromSheet(&mainStruct.revtendo_loaded_selected, spriteSheet, sheet_revtendo_loaded_selected_idx);
 	C2D_SpriteFromSheet(&mainStruct.revtendo_loaded_deselected, spriteSheet, sheet_revtendo_loaded_deselected_idx);
     
-    C2D_SpriteSetCenter(&mainStruct.top, 0.5f, 0.5f);
-    C2D_SpriteSetPos(&mainStruct.top, 200, 120);
+    C2D_SpriteSetCenter(&mainStruct.revNetTop_Info, 0.5f, 0.5f);
+    C2D_SpriteSetPos(&mainStruct.revNetTop_Info, 200, 120);
     C2D_SpriteSetPos(&mainStruct.go_back, 0, 214);
     C2D_SpriteSetCenter(&mainStruct.header, 0.5f, 0.0f);
     C2D_SpriteSetPos(&mainStruct.header, 160, 0);
@@ -76,8 +76,8 @@ static void sceneInit(void)
     C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_selected, 27, 127);
     C2D_SpriteSetPos(&mainStruct.nintendo_unloaded_deselected, 27, 127);
     C2D_SpriteSetPos(&mainStruct.nintendo_loaded_deselected, 27, 127);
-    C2D_SpriteSetCenter(&mainStruct.bottom, 0.5f, 0.5f);
-    C2D_SpriteSetPos(&mainStruct.bottom, 160, 120);
+    C2D_SpriteSetCenter(&mainStruct.revNetBottom_Main, 0.5f, 0.5f);
+    C2D_SpriteSetPos(&mainStruct.revNetBottom_Main, 160, 120);
     
 	textBuf = C2D_TextBufNew(4096); // initialize the text buffer with a max glyph count of 4096
 }

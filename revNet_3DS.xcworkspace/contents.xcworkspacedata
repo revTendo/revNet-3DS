@@ -62,6 +62,9 @@
          location = "group:meta"
          name = "meta">
          <FileRef
+            location = "group:BANNER_audio.wav">
+         </FileRef>
+         <FileRef
             location = "group:icon.png">
          </FileRef>
          <FileRef
@@ -75,6 +78,9 @@
          </FileRef>
          <FileRef
             location = "group:audio.wav">
+         </FileRef>
+         <FileRef
+            location = "group:audio copy.wav">
          </FileRef>
       </Group>
       <Group
@@ -137,16 +143,16 @@
                location = "group:go_back.png">
             </FileRef>
             <FileRef
-               location = "group:bottom.png">
+               location = "group:revtendo_loaded_selected.png">
             </FileRef>
             <FileRef
-               location = "group:revtendo_loaded_selected.png">
+               location = "group:revNetTop_Info.png">
             </FileRef>
             <FileRef
                location = "group:revtendo_unloaded_deselected.png">
             </FileRef>
             <FileRef
-               location = "group:top.png">
+               location = "group:revNetBottom_Main.png">
             </FileRef>
             <FileRef
                location = "group:header.png">
@@ -176,46 +182,6 @@
          <FileRef
             location = "group:Credits.rtfd">
          </FileRef>
-      </Group>
-   </Group>
-   <Group
-      location = "group:Audacity files"
-      name = "Audacity files">
-      <FileRef
-         location = "group:BANNER_audio.aup3">
-      </FileRef>
-      <FileRef
-         location = "group:REVNET_BGM.aup3">
-      </FileRef>
-      <FileRef
-         location = "group:REVNET_SFX.aup3">
-      </FileRef>
-      <FileRef
-         location = "group:REVNET_SETUP_BGM.wav">
-      </FileRef>
-   </Group>
-   <FileRef
-      location = "group:DECOMPRESSING.md">
-   </FileRef>
-   <FileRef
-      location = "group:LICENSE">
-   </FileRef>
-   <FileRef
-      location = "group:Makefile">
-   </FileRef>
-   <Group
-      location = "group:out"
-      name = "out">
-      <Group
-         location = "group:cia_out"
-         name = "cia_out">
-         <Group
-            location = "group:cias"
-            name = "cias">
-            <FileRef
-               location = "group:AXE_3DS.cia">
-            </FileRef>
-         </Group>
       </Group>
    </Group>
    <Group
@@ -459,5 +425,30 @@
    </Group>
    <FileRef
       location = "group:README.md">
+   </FileRef>
+   <FileRef
+      location = "group:Makefile">
+   </FileRef>
+   <Group
+      location = "group:Audacity files"
+      name = "Audacity files">
+      <FileRef
+         location = "group:BANNER_audio.aup3">
+      </FileRef>
+      <FileRef
+         location = "group:REVNET_BGM.aup3">
+      </FileRef>
+      <FileRef
+         location = "group:REVNET_SFX.aup3">
+      </FileRef>
+      <FileRef
+         location = "group:REVNET_SETUP_BGM.wav">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:LICENSE">
+   </FileRef>
+   <FileRef
+      location = "group:DECOMPRESSING.md">
    </FileRef>
 </Workspace>
