@@ -156,8 +156,39 @@ int main()
     
     svcSleepThread(50000000);
     
-    while (ndspChnIsPlaying(1)) {
-            svcSleepThread(1000000); // Sleep thread for 1 millisecond to prevent CPU locking
+    // --- FADE TO BLACK EXIT SEQUENCE --- //
+        u32 fadeAlpha = 0;
+        touchPosition dummyTouch = {0, 0};
+
+        while (ndspChnIsPlaying(1)) {
+            
+            // Increase the opacity of the black rectangle each frame.
+            if (fadeAlpha < 255) {
+                fadeAlpha += 8;
+                if (fadeAlpha > 255) fadeAlpha = 255;
+            }
+
+            C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
+            
+            // Clears targets to their normal background colors
+            C2D_TargetClear(top_screen, C2D_Color32(0xB6, 0xB4, 0xC2, 0xFF));
+            C2D_TargetClear(bottom_screen, C2D_Color32(0xFE, 0xFE, 0xFE, 0xFF));
+            
+            // Redraws the UI statically
+            if (mainStruct.state == 0) {
+                LumaValidation::checkIfLumaOptionsEnabled(&mainStruct, top_screen, bottom_screen, 0, 0, dummyTouch);
+            } else {
+                MainUI::drawUI(&mainStruct, top_screen, bottom_screen, 0, 0, dummyTouch);
+            }
+
+            // Draws the black fade overlay
+            C2D_SceneBegin(top_screen);
+            C2D_DrawRectSolid(0, 0, 1.0f, 400, 240, C2D_Color32(0, 0, 0, fadeAlpha));
+
+            C2D_SceneBegin(bottom_screen);
+            C2D_DrawRectSolid(0, 0, 1.0f, 320, 240, C2D_Color32(0, 0, 0, fadeAlpha));
+
+            C3D_FrameEnd(0);
         }
     
 	// Deinitialize the libs
