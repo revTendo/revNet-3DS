@@ -318,7 +318,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
  
     C2D_SceneBegin(top_screen);
     DrawVersionString();
-    C2D_DrawSprite(&mainStruct->top);
+    C2D_DrawSprite(&mainStruct->revNetTop_Info);
  
     if (mainStruct->errorString[0] != 0) {
         DrawString(0.5f, 0xFF000000, mainStruct->errorString, 0);
@@ -328,7 +328,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
     }
  
     C2D_SceneBegin(bottom_screen);
-    C2D_DrawSprite(&mainStruct->bottom);
+    C2D_DrawSprite(&mainStruct->revNetBottom_Main);
     if (!mainStruct->prompt.active) DrawControls();
  
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
