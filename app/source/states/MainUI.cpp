@@ -329,7 +329,8 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
  
     C2D_SceneBegin(bottom_screen);
     C2D_DrawSprite(&mainStruct->revNetBottom_Main);
-    if (!mainStruct->prompt.active) DrawControls();
+    // if (!mainStruct->prompt.active) DrawControls();
+    // Leave this commented out, unless directed by Adrian. //
  
     if (mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Prod) {
         if (mainStruct->currentAccount == NascEnvironment::NASC_ENV_Prod) {
@@ -390,15 +391,15 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
             retrevID = 0;
             if (R_FAILED(retrevID = ACT_GetAccountIndexOfFriendAccountId(&revidAccountSlot, 3))) {
                     LOG_REVNET_ERROR(mainStruct, std::format("ACT_GetAccountIndexOfFriendAccountId failed: {}!", retrevID).c_str());
-                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                    loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
                 }
                 else if (revidAccountSlot == 0) {
                     LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
-                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                    loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
                 }
                 else if (R_FAILED(retrevID = ACT_GetAccountInfo(revid, sizeof(revid), revidAccountSlot, INFO_TYPE_ACCOUNT_ID))) {
                     LOG_REVNET_ERROR(mainStruct, std::format("ACT_GetAccountInfo failed: {}!", retrevID).c_str());
-                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                    loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
                 }
                 else if (revid[0] != '\0') {
                     openPrompt(mainStruct,
@@ -408,7 +409,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                 }
                 else {
                     LOG_REVNET_ERROR(mainStruct, "There is no revID linked on this console!");
-                    loadAndPlaySFX("romfs:/sfx/MES_WARNING.wav");
+                    loadAndPlaySFX("romfs:/sfx/MES_INFO.wav");
             }
         }
         
