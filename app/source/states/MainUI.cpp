@@ -376,7 +376,7 @@ bool MainUI::drawUI(MainStruct *mainStruct, C3D_RenderTarget* top_screen,
                 mainStruct->buttonSelected == NascEnvironment::NASC_ENV_Dev
                     ? NascEnvironment::NASC_ENV_Prod
                     : NascEnvironment::NASC_ENV_Dev;
-            loadAndPlaySFX("romfs:/sfx/ACC_SELECT.wav");
+            loadAndPlaySFX("romfs:/sfx/ACC_TAP.wav");
         }
  
         if (mainStruct->prompt.active) return false;
