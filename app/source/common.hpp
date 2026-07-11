@@ -102,8 +102,8 @@ struct MainStruct {
     C2D_Sprite revtendo_unloaded_selected;
     C2D_Sprite revtendo_loaded_selected;
     C2D_Sprite revtendo_loaded_deselected;
-    C2D_Sprite top;
-    C2D_Sprite bottom;
+    C2D_Sprite revNetTop_Info;
+    C2D_Sprite revNetBottom_Main;
 
     u32 screen    = 0;
     u32 state     = 0;
