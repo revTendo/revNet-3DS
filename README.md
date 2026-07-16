@@ -7,15 +7,13 @@
 
 | Service | Status |
 | --- | --- |
-| Nintendo 3DS eShop | Being worked on |
+| Nintendo 3DS eShop | Working |
 | Badge Arcade | Temporarily Unavailable |
 | Nintendo Video | Unavailable |
 | SpotPass | Unavailable |
 | Miiverse | Unavailable |
 | Friend List | Unavailable |
-| revNet | Being worked on |
+| revNet | Working |
 | revNet (app) | Ready |
 | Games | Unavailable |
 | Theme Shop | Unavailable |
-
-# ETA: Sometime next week
