@@ -2,7 +2,7 @@
 
 # OLD AND EOL!!
 
-< This repo has been deprecated in favour of the new one. This is heavily outdated, please don't use it. 
+> This repo has been deprecated in favour of the new one. This is heavily outdated, please don't use it. 
 
 
 # revTendo revNet
